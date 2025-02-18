@@ -22,7 +22,7 @@ const Login = () => {
                 if (data.success) {
                     localStorage.setItem('token', data.token);
                     setToken(data.token);
-                    toast.success(data.message)
+                    toast.success("Welcome Back")
                 } else {
                     toast.error(data.message)
                 }
