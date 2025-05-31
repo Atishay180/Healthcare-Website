@@ -81,7 +81,7 @@ const loginAdmin = async (req, res) => {
         }
 
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            const token = jwt.sign({email}, process.env.JWT_SECRET, {"expiresIn": "10d"});
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, { "expiresIn": "10d" });
             return res
                 .status(200)
                 .json({ message: "Admin logged in successfully", success: true, token })
@@ -100,4 +100,36 @@ const loginAdmin = async (req, res) => {
     }
 }
 
-export { addDoctor, loginAdmin }
+// api for getting all doctors in admin panel
+const allDoctors = async (req, res) => {
+    try {
+
+        const token = req.headers.token;
+
+        if (!token) {
+            return res
+                .status(401)
+                .json({ message: "Unauthorized access", success: false })
+        }
+
+        const doctors = await Doctor.find({}).select("-password")
+
+        if (doctors.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "No doctors found", success: false })
+        }
+
+        return res
+            .status(200)
+            .json({ message: "Doctors fetched successfully", success: true, doctors })
+
+    } catch (error) {
+        console.log("error in allDoctors controller: ", error.message)
+        return res
+            .status(500)
+            .json({ message: "Internal server error", sucess: false })
+    }
+}
+
+export { addDoctor, loginAdmin, allDoctors }
