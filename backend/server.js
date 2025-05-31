@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
+import cookieParser from "cookie-parser"
 
 import connectDb from "./config/mongodb.js"
 import connectCloudinary from "./config/cloudinary.js"
@@ -18,7 +19,24 @@ connectCloudinary()
 
 //middleware
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser());
+
+// const allowedOrigins = [
+//     process.env.FRONTEND_USER_URL,
+//     process.env.FRONTEND_ADMIN_URL
+// ];
+
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (!origin || allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     credentials: true
+// }));
+app.use(cors());
 
 //api endpoints
 app.use("/api/admin", adminRouter)
