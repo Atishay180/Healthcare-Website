@@ -123,7 +123,7 @@ const loginUser = async (req, res) => {
 
         return res
             .status(200)
-            .json({ success: true, message: "Login successful", token });
+            .json({ success: true, message: `Welcome back ${existingUser.name}`, token });
     } catch (error) {
         console.error("Error in loginUser:", error.message);
         return res
