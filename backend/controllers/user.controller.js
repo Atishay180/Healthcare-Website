@@ -2,6 +2,7 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
+import { v2 as cloudinary } from "cloudinary";
 
 
 // api to register new user
@@ -73,7 +74,7 @@ const registerUser = async (req, res) => {
 
         return res
             .status(201)
-            .json({ success: true, message: `Registered Successfully`, token});
+            .json({ success: true, message: `Registered Successfully`, token });
     } catch (error) {
         console.error("Error in registerUser:", error.message);
         return res
@@ -132,4 +133,73 @@ const loginUser = async (req, res) => {
     }
 }
 
-export { registerUser, loginUser };
+// api to get user profile
+const getUserProfile = async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        const userData = await User.findById(userId).select("-password");
+
+        if (!userData) {
+            return res
+                .status(404)
+                .json({ success: false, message: "User not found" });
+        }
+
+        return res
+            .status(200)
+            .json({ success: true, message: "User profile fetched successfully", userData });
+
+    } catch (error) {
+        console.error("Error in getUserProfile:", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+    }
+}
+
+// api to update user profile
+const updateUserProfile = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const imageFile = req.file;
+
+        if (!userId) {
+            return res
+                .status(400)
+                .json({ success: false, message: "User ID is required" });
+        }
+
+        const updateFields = {};
+
+        if (req.body.name) updateFields.name = req.body.name;
+        if (req.body.phone) updateFields.phone = req.body.phone;
+        if (req.body.address) updateFields.address = JSON.parse(req.body.address);
+        if (req.body.dob) updateFields.dob = req.body.dob;
+        if (req.body.gender) updateFields.gender = req.body.gender;
+
+        if (Object.keys(updateFields).length > 0) {
+            await User.findByIdAndUpdate(userId, updateFields);
+        }
+
+        if (imageFile) {
+            const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
+
+            const imageURL = imageUpload.secure_url;
+
+            await User.findByIdAndUpdate(userId, { image: imageURL })
+        }
+
+        return res
+            .status(200)
+            .json({ success: true, message: "User profile updated successfully" });
+
+    } catch (error) {
+        console.error("Error in updateUserProfile:", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+    }
+}
+
+export { registerUser, loginUser, getUserProfile, updateUserProfile };
