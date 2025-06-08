@@ -9,6 +9,7 @@ const MyProfile = () => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(false);
+  const [gender, setGender] = useState("Not Selected");
 
   const updateUserProfile = async () => {
     try {
@@ -16,7 +17,13 @@ const MyProfile = () => {
       formData.append('name', userData.name)
       formData.append('phone', userData.phone)
       formData.append('address', JSON.stringify(userData.address))
-      formData.append('gender', userData.gender)
+
+      console.log(gender);
+      
+      if(gender !== "Not Selected"){
+        formData.append('gender', gender)
+      }
+      // formData.append('gender', userData.gender)
       formData.append('dob', userData.dob)
 
       image && formData.append('image', image)
@@ -118,8 +125,9 @@ const MyProfile = () => {
             isEdit
               ? <select
                 className='max-w-20 bg-gray-100'
-                value={userData.gender}
-                onChange={(e) => setUserData(prev => ({ ...prev, gender: e.target.value }))}
+                value={gender}
+                // onChange={(e) => setUserData(prev => ({ ...prev, gender: e.target.value }))}
+                onChange={(e) => setGender(e.target.value)}
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
