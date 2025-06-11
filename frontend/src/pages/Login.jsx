@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
-import { ThreeCircles } from 'react-loader-spinner';
 import { AuthContext } from '../context/AuthContext';
+import Loader from '../components/Loader';
 
 const Login = () => {
   const { authentication } = useContext(AuthContext)
@@ -77,13 +77,7 @@ const Login = () => {
 
         {loading
           ? <button className='bg-primary text-white w-full py-2 rounded-md flex justify-center'>
-            <ThreeCircles
-              visible={true}
-              height="25"
-              width="25"
-              color="white"
-              ariaLabel="oval-loading"
-            />
+            <Loader colors={{primary: "white", secondary: "gray"}}/>
           </button>
 
           : <button

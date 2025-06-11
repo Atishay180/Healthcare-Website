@@ -183,11 +183,20 @@ const updateUserProfile = async (req, res) => {
         }
 
         if (imageFile) {
+
+            const getUser = await User.findById(userId);
+
+            // If user already has a profile image, delete it from Cloudinary
+            if (getUser.imagePublicId) {
+                await cloudinary.uploader.destroy(getUser.imagePublicId, { resource_type: "image" });
+            }
+
             const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
 
-            const imageURL = imageUpload.secure_url;
-
-            await User.findByIdAndUpdate(userId, { image: imageURL })
+            await User.findByIdAndUpdate(userId, {
+                image: imageUpload.secure_url,
+                imagePublicId: imageUpload.public_id
+            })
         }
 
         return res

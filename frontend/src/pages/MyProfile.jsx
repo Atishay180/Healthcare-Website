@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../context/AppContext';
+import { InfinitySpin, Oval, ThreeCircles } from 'react-loader-spinner';
 import { assets } from "../assets/assets"
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Loader from '../components/Loader';
 
 const MyProfile = () => {
   const { userData, setUserData, token, backendUrl, getUserProfileData } = useContext(AppContext);
@@ -10,8 +12,10 @@ const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(false);
   const [gender, setGender] = useState("Not Selected");
+  const [loading, setLoading] = useState(false);
 
   const updateUserProfile = async () => {
+    setLoading(true)
     try {
       const formData = new FormData()
       formData.append('name', userData.name)
@@ -19,8 +23,8 @@ const MyProfile = () => {
       formData.append('address', JSON.stringify(userData.address))
 
       console.log(gender);
-      
-      if(gender !== "Not Selected"){
+
+      if (gender !== "Not Selected") {
         formData.append('gender', gender)
       }
       // formData.append('gender', userData.gender)
@@ -42,6 +46,8 @@ const MyProfile = () => {
     } catch (error) {
       console.log(error.message);
       toast.error(error.message);
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -151,7 +157,12 @@ const MyProfile = () => {
       <div className='mt-10'>
         {
           isEdit
-            ? <button className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' onClick={updateUserProfile}>Save Information</button>
+            ? <button className='border border-primary h-10 w-56 px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' onClick={updateUserProfile}>
+              {loading ?
+                <Loader colors={{ primary: "#5f6FFF", secondary: "#808080" }} />
+                :
+                "Save Information"}
+            </button>
             : <button className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' onClick={() => setIsEdit(true)}>Edit</button>
         }
       </div>
