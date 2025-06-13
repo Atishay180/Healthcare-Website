@@ -1,4 +1,7 @@
 import { User } from "../models/user.model.js";
+import { Doctor } from "../models/doctor.model.js";
+import { Appointment } from "../models/appointment.model.js";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
@@ -211,4 +214,78 @@ const updateUserProfile = async (req, res) => {
     }
 }
 
-export { registerUser, loginUser, getUserProfile, updateUserProfile };
+// api to book appointment
+const bookAppointment = async (req, res) => {
+    try {
+        const { userId, docId, slotDate, slotTime } = req.body;
+
+        const doctor = await Doctor.findById(docId).select("-password");
+        if (!doctor) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Doctor not found" });
+        }
+
+        if (!doctor.available) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Doctor is not available for booking" });
+        }
+
+        let slots_booked = doctor.slots_booked
+
+        // check for slot availability
+
+        // If slots_booked is an object and has the slotDate key, check if the slotTime is already booked
+        if (slots_booked[slotDate]) {
+            if (slots_booked[slotDate].includes(slotTime)) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "Slot not available" });
+            } else {
+                slots_booked[slotDate].push(slotTime);
+            }
+        }
+
+        // If slots_booked is an object but does not have the slotDate key, create it
+        else {
+            slots_booked[slotDate] = [];
+            slots_booked[slotDate].push(slotTime);
+        }
+
+        const user = await User.findById(userId).select("-password");
+
+        // deleting slots_booked from doctor data before saving to appointment but keeping it in the database of doctor
+        // to avoid sending unnecessary data to the client
+        delete doctor.slots_booked;
+
+        const appointmentData = {
+            userId,
+            docId,
+            userData: user,
+            doctorData: doctor,
+            amount: doctor.fees,
+            slotTime,
+            slotDate,
+        }
+
+        const newAppointment = new Appointment(appointmentData);
+        await newAppointment.save();
+
+        // Update doctor's slots_booked in the database
+        await Doctor.findByIdAndUpdate(docId, { slots_booked })
+
+        return res
+            .status(201)
+            .json({ success: true, message: "Appointment booked successfully", appointment: newAppointment });
+
+    } catch (error) {
+        console.error("Error in bookAppointment:", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+
+    }
+}
+
+export { registerUser, loginUser, getUserProfile, updateUserProfile, bookAppointment };

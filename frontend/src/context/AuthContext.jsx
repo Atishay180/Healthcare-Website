@@ -26,31 +26,22 @@ const AuthContextProvider = (props) => {
             if (state === 'Sign Up') {
                 const { data } = await axios.post(`${backendUrl}/api/user/register`, { name, email, password })
 
-                if (data.success) {
-                    localStorage.setItem('token', data.token)
-                    setToken(data.token)
-                    toast.success(data.message || "Registered Successfully")
-                }
-                else {
-                    toast.error(data.message)
-                }
+                localStorage.setItem('token', data.token)
+                setToken(data.token)
+                toast.success(data.message || "Registered Successfully")
             }
 
             // login user
             else {
                 const { data } = await axios.post(`${backendUrl}/api/user/login`, { email, password })
 
-                if (data.success) {
-                    localStorage.setItem('token', data.token)
-                    setToken(data.token)
-                    toast.success(data.message || "Logged in Successfully")
-                }
-                else {
-                    toast.error(data.message)
-                }
+                localStorage.setItem('token', data.token)
+                setToken(data.token)
+                toast.success(data.message || "Logged in Successfully")
             }
         } catch (error) {
-            toast.error(error.message || "Something went wrong")
+            const message = error.response?.data?.message || error.message || "Something Went Wrong"
+            toast.error(message)
         } finally {
             setLoading(false)
         }
@@ -58,10 +49,10 @@ const AuthContextProvider = (props) => {
     }
 
     // logout logic 
-    const logout = ({token, setToken}) => {
+    const logout = ({ token, setToken }) => {
         setToken(false);
         localStorage.removeItem('token');
-        toast.success(`Logged Out`);
+        toast.success(`Logged Out Successfully`);
     }
 
     const value = {

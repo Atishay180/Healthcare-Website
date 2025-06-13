@@ -20,26 +20,20 @@ const AppContextProvider = (props) => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/doctor/list`);
 
-            data.success ? setDoctors(data.doctors) : toast.error(data.message);
+            data.success && setDoctors(data.doctors);
         } catch (error) {
-            console.log(error.message);
-            toast.error(error.message || "Something went wrong");
+            const message = error.response?.data?.message || error.message || "Something Went Wrong"
+            toast.error(message)
         }
     }
 
     const getUserProfileData = async () => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/user/get-profile`, { headers: { token } })
-
-            if (data.success) {
-                setUserData(data.userData);
-            }
-            else {
-                toast.error(data.message);
-            }
+            setUserData(data.userData);
         } catch (error) {
-            console.log(error.message);
-            toast.error(error.message || "Something went wrong");
+            const message = error.response?.data?.message || error.message || "Something Went Wrong"
+            toast.error(message)
         }
     }
 
@@ -47,7 +41,7 @@ const AppContextProvider = (props) => {
     const value = {
         doctors, currencySymbol,
         token, setToken,
-        backendUrl, 
+        backendUrl,
         userData, setUserData,
         getUserProfileData
     }
