@@ -10,16 +10,16 @@ import { Speciality } from "../models/speciality.model.js";
 // api for adding speciality
 const addSpeciality = async (req, res) => {
     try {
-        const { speciality, status, description } = req.body;
+        const { name, status, description } = req.body;
 
-        if (!speciality || !status || !description) {
+        if (!name || !status || !description) {
             return res
                 .status(400)
                 .json({ message: "All fields are required", success: false })
         }
 
         //check if speciality already exists
-        const specialityExists = await Speciality.findOne({ speciality });
+        const specialityExists = await Speciality.findOne({ name });
 
         if (specialityExists) {
             return res
@@ -29,7 +29,7 @@ const addSpeciality = async (req, res) => {
 
         //create speciality data
         const specialityData = {
-            speciality,
+            name,
             status,
             description,
         }

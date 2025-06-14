@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const specialitySchema = new mongoose.Schema({
-    speciality: {
+    name: {
         type: String,
         required: true,
         unique: true,
@@ -15,7 +15,6 @@ const specialitySchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['Available', 'Unavailable', 'Coming Soon'],
-        default: 'Available',
         required: true
     },
     description: {

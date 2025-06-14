@@ -5,8 +5,8 @@ import { toast } from 'react-hot-toast';
 import { AdminContext } from '../../context/AdminContext';
 
 const AddSpeciality = () => {
-    const [speciality, setSpeciality] = useState('');
-    const [status, setStatus] = useState('available');
+    const [name, setName] = useState('');
+    const [status, setStatus] = useState('Available');
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -19,13 +19,16 @@ const AddSpeciality = () => {
 
         setLoading(true);
         try {
-            const {data} = await axios.post(`${backendUrl}/api/admin/add-speciality`, {speciality, status, description}, {headers: {token}})
+            const {data} = await axios.post(`${backendUrl}/api/admin/add-speciality`, {name, status, description}, {headers: {token}})
             toast.success(data?.message || 'Speciality added successfully');
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Something went wrong');
         } finally {
+            setName('');
+            setStatus('Available');
+            setDescription('');
             setLoading(false);
-        }
+        }a
     }
 
     return (
@@ -37,8 +40,8 @@ const AddSpeciality = () => {
                     <div className='flex flex-col gap-1'>
                         <p>Speciality Name</p>
                         <input
-                            value={speciality}
-                            onChange={(e) => setSpeciality(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className='border rounded px-3 py-2'
                             type='text'
                             placeholder='Enter speciality name'
