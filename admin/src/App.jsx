@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
 
-import Login from './pages/login'
+import Login from './pages/Login'
 import Navbar from './components/Navbar';
 
 import Sidebar from './components/Sidebar';
@@ -29,11 +29,11 @@ const App = () => {
             <Route path='/admin-dashboard' element={<Dashboard />} />
             <Route path='/all-appointments' element={<AllAppointments />} />
             <Route path='/add-doctor' element={<AddDoctor />} />
-            <Route path='/add-speciality' element={<AddSpeciality/>} />
+            <Route path='/add-speciality' element={<AddSpeciality />} />
             <Route path='/doctor-list' element={<DoctorsList />} />
           </Routes>
         </div>
-      </div> 
+      </div>
     )
     : (
       <div>

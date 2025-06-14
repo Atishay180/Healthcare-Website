@@ -2,9 +2,54 @@ import validator from "validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
-import { Doctor } from "../models/doctor.model.js";
 
-//API for adding doctor
+import { Doctor } from "../models/doctor.model.js";
+import { Speciality } from "../models/speciality.model.js";
+
+
+// api for adding speciality
+const addSpeciality = async (req, res) => {
+    try {
+        const { speciality, status, description } = req.body;
+
+        if (!speciality || !status || !description) {
+            return res
+                .status(400)
+                .json({ message: "All fields are required", success: false })
+        }
+
+        //check if speciality already exists
+        const specialityExists = await Speciality.findOne({ speciality });
+
+        if (specialityExists) {
+            return res
+                .status(400)
+                .json({ message: "Speciality already exists", success: false })
+        }
+
+        //create speciality data
+        const specialityData = {
+            speciality,
+            status,
+            description,
+        }
+
+        const newSpeciality = new Speciality(specialityData);
+        await newSpeciality.save();
+
+        return res
+            .status(200)
+            .json({ message: "Speciality added successfully", success: true });
+
+    } catch (error) {
+        console.log("error in add speciality: ", error.message);
+        return res
+            .status(500)
+            .json({ message: "Internal server error", success: false });
+    }
+}
+
+// api for adding doctor
 const addDoctor = async (req, res) => {
     try {
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
@@ -69,7 +114,7 @@ const addDoctor = async (req, res) => {
     }
 }
 
-//api for admin login
+// api for admin login
 const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -132,4 +177,4 @@ const allDoctors = async (req, res) => {
     }
 }
 
-export { addDoctor, loginAdmin, allDoctors }
+export { addSpeciality, addDoctor, loginAdmin, allDoctors }

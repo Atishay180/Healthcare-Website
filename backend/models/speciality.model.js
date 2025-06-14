@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const specialitySchema = new mongoose.Schema({
-    Speciality: {
+    speciality: {
         type: String,
         required: true,
         unique: true,
