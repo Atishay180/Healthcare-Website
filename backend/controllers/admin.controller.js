@@ -84,8 +84,13 @@ const addDoctor = async (req, res) => {
         const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
         const imageUrl = imageUpload.secure_url;
 
+        //create a unique doctorId
+        const random = Math.floor(100 + Math.random() * 900); // 100–999 always 3 digits
+        const doctorId = `DOC-PR${Date.now()}${random}`;
+
         //create doctor data
         const doctorData = {
+            doctorId,
             name,
             email,
             image: imageUrl,
