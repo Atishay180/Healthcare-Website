@@ -1,13 +1,14 @@
 import { createContext, useState } from "react";
 import axios from 'axios';
 import { toast } from "react-hot-toast"
-
+import { useEffect } from "react";
 export const AdminContext = createContext();
 
 const AdminContextProvider = (props) => {
 
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
     const [doctors, setDoctors] = useState([]);
+    const [specialities, setSpecialities] = useState([]);
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -17,6 +18,17 @@ const AdminContextProvider = (props) => {
 
             setDoctors(data.doctors)
 
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong")
+        }
+    }
+
+    const getAllSpecialities = async () => {
+        try {
+            const {data} = await axios.get(`${backendUrl}/api/admin/all-specialities`, { headers: { token } })
+            setSpecialities(data.specialities)
+            
+            toast.success(data.message)
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || "Something went wrong")
         }
@@ -38,10 +50,18 @@ const AdminContextProvider = (props) => {
         }
     }
 
+    useEffect(() => {
+        if (token) {
+            getAllDoctors();
+            getAllSpecialities();
+        }
+    }, [token])
+
     const value = {
         token, setToken,
         backendUrl,
-        doctors, getAllDoctors,
+        doctors,
+        specialities,
         changeAvailability
     }
 

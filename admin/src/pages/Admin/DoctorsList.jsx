@@ -3,14 +3,7 @@ import { AdminContext } from '../../context/AdminContext'
 
 const DoctorsList = () => {
 
-  const { doctors, getAllDoctors, token, changeAvailability } = useContext(AdminContext);
-
-  useEffect(() => {
-    if (token) {
-      getAllDoctors();
-    }
-
-  }, [token])
+  const { doctors, token, changeAvailability } = useContext(AdminContext);
 
   return (
     <div className='m-5 max-h-[90vh] overflow-y-scroll'>

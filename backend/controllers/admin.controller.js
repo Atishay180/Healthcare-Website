@@ -53,7 +53,7 @@ const addSpeciality = async (req, res) => {
 const addDoctor = async (req, res) => {
     try {
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
-        const imageFile = req.file;
+        const imageFile = req.file;    
 
         //check if all fields are present
         if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address || !imageFile) {
@@ -88,6 +88,9 @@ const addDoctor = async (req, res) => {
         const random = Math.floor(100 + Math.random() * 900); // 100–999 always 3 digits
         const doctorId = `DOC-PR${Date.now()}${random}`;
 
+        //get speciality details
+        const specialityDetails = await Speciality.findById(speciality);
+
         //create doctor data
         const doctorData = {
             doctorId,
@@ -95,7 +98,8 @@ const addDoctor = async (req, res) => {
             email,
             image: imageUrl,
             password: hashedPassword,
-            speciality,
+            speciality: specialityDetails.name,
+            specialityId: speciality,
             degree,
             experience,
             about,
@@ -106,6 +110,12 @@ const addDoctor = async (req, res) => {
 
         const newDoctor = new Doctor(doctorData);
         await newDoctor.save();
+
+        // add doctor to speciality
+        await Speciality.findByIdAndUpdate(speciality,
+            { $push: { doctors: newDoctor._id } },
+            { new: true, }
+        )
 
         return res
             .status(200)
@@ -182,4 +192,27 @@ const allDoctors = async (req, res) => {
     }
 }
 
-export { addSpeciality, addDoctor, loginAdmin, allDoctors }
+// api for getting all specialities
+const allSpecialities = async (req, res) => {
+    try {
+        const specialities = await Speciality.find({});
+
+        if (specialities.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "No specialities found", success: false });
+        }
+
+        return res
+            .status(200)
+            .json({ message: "Specialities fetched successfully", success: true, specialities });
+
+    } catch (error) {
+        console.log("error in allSpecialities controller: ", error.message);
+        return res
+            .status(500)
+            .json({ message: "Internal server error", success: false });
+    }
+}
+
+export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities }

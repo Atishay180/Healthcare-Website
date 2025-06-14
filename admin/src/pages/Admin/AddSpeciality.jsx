@@ -19,16 +19,16 @@ const AddSpeciality = () => {
 
         setLoading(true);
         try {
-            const {data} = await axios.post(`${backendUrl}/api/admin/add-speciality`, {name, status, description}, {headers: {token}})
+            const { data } = await axios.post(`${backendUrl}/api/admin/add-speciality`, { name, status, description }, { headers: { token } })
             toast.success(data?.message || 'Speciality added successfully');
-        } catch (error) {
-            toast.error(error.response?.data?.message || error.message || 'Something went wrong');
-        } finally {
             setName('');
             setStatus('Available');
             setDescription('');
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || 'Something went wrong');
+        } finally {
             setLoading(false);
-        }a
+        } 
     }
 
     return (

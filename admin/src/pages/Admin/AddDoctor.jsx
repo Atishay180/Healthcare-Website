@@ -3,8 +3,10 @@ import { assets } from '../../assets/assets'
 import { AdminContext } from '../../context/AdminContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const AddDoctor = () => {
+  const { backendUrl, token, specialities } = useContext(AdminContext);
 
   const [docImg, setDocImg] = useState(false);
   const [name, setName] = useState('');
@@ -13,12 +15,11 @@ const AddDoctor = () => {
   const [experience, setExperience] = useState('1 Year');
   const [fees, setFees] = useState('');
   const [about, setAbout] = useState('');
-  const [speciality, setSpeciality] = useState('General physician');
+  const [speciality, setSpeciality] = useState('684da614426fd859f10cd93e');
   const [degree, setDegree] = useState('');
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
 
-  const { backendUrl, token } = useContext(AdminContext);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -163,12 +164,11 @@ const AddDoctor = () => {
                 name=""
                 id=""
               >
-                <option value="General physician">General physician</option>
-                <option value="Gynecologist">Gynecologist</option>
-                <option value="Dermatologist">Dermatologist</option>
-                <option value="Pediatricians">Pediatricians</option>
-                <option value="Neurologist">Neurologist</option>
-                <option value="Gastroenterologist">Gastroenterologist</option>
+                {specialities && specialities.map((item) => (
+                  <option key={item._id} value={item._id}>
+                    {item.name} {item.status === 'Coming Soon' ? `(${item.status})` : ""}
+                  </option>
+                ))}
               </select>
             </div>
 
