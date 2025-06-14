@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { assets } from '../assets/assets'
 import { AdminContext } from '../context/AdminContext';
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const [state, setState] = useState('Admin');
@@ -19,20 +18,14 @@ const Login = () => {
             if (state === 'Admin') {
                 const { data } = await axios.post(backendUrl + '/api/admin/login', { email, password });
 
-                if (data.success) {
-                    localStorage.setItem('token', data.token);
-                    setToken(data.token);
-                    toast.success("Welcome Back")
-                } else {
-                    toast.error(data.message)
-                }
-
+                localStorage.setItem('token', data.token);
+                setToken(data.token);
+                toast.success(data?.message || "Welcome Back")
             } else {
 
             }
         } catch (error) {
-            console.log("error in login: ", error.message)
-            toast.error(error.message)
+            toast.error(error.response?.data?.message || error.message || 'Something went wrong');
         }
     }
 

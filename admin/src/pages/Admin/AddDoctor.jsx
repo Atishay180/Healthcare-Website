@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { assets } from '../../assets/assets'
 import { AdminContext } from '../../context/AdminContext';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
 const AddDoctor = () => {
@@ -42,23 +42,18 @@ const AddDoctor = () => {
 
       const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, { headers: { token } });
 
-      if (data.success) {
-        toast.success(data.message);
-        setDocImg(false);
-        setName('');
-        setEmail('');
-        setPassword('');
-        setFees('');
-        setAbout('');
-        setAddress1('');
-        setAddress2('');
-        setDegree('');
-      } else {
-        toast.error(data.message);
-      }
+      toast.success(data?.message);
+      setDocImg(false);
+      setName('');
+      setEmail('');
+      setPassword('');
+      setFees('');
+      setAbout('');
+      setAddress1('');
+      setAddress2('');
+      setDegree('');
     } catch (error) {
-      toast.error(error.message);
-      console.log("error in add doctor: ", error.message);
+      toast.error(error.response?.data?.message || error.message || 'Something went wrong');
     }
   }
 
