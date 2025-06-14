@@ -14,6 +14,7 @@ import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { AppContext } from './context/AppContext'
+import ErrorPage from './pages/Error'
 
 const App = () => {
   const { token } = useContext(AppContext);
@@ -23,6 +24,7 @@ const App = () => {
       <Toaster />
       <Navbar />
       <Routes>
+        <Route path="*" element={<ErrorPage />} />
         <Route path='/' element={<Home />} />
         <Route path='/doctors' element={<Doctors />} />
         <Route path='/doctors/:speciality' element={<Doctors />} />

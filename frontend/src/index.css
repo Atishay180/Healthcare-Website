@@ -7,8 +7,8 @@
     font-family: Outfit;
 }
 
-.active hr{
-    @apply block
+.active hr {
+  @apply block origin-center scale-x-100 transition-transform duration-300;
 }
 
 /* property to hide the scroll bar */
