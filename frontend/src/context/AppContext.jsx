@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
-    const currencySymbol = '$';
+    const currencySymbol = '₹';
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [doctors, setDoctors] = useState([]);
     const [specialities, setSpecialities] = useState([]);
@@ -53,6 +53,7 @@ const AppContextProvider = (props) => {
         token, setToken,
         backendUrl,
         userData, setUserData,
+        getDoctorsData,
         getUserProfileData,
         specialities
     }
