@@ -3,11 +3,10 @@ import { assets } from '../../assets/assets'
 import { AdminContext } from '../../context/AdminContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
-import { useEffect } from 'react';
 import Loader from '../../components/Loader';
 
 const AddDoctor = () => {
-  const { backendUrl, token, specialities } = useContext(AdminContext);
+  const { backendUrl, token, specialities, speciality, setSpeciality } = useContext(AdminContext);
 
   const [docImg, setDocImg] = useState(false);
   const [name, setName] = useState('');
@@ -17,7 +16,6 @@ const AddDoctor = () => {
   const [experience, setExperience] = useState('1 Year');
   const [fees, setFees] = useState('');
   const [about, setAbout] = useState('');
-  const [speciality, setSpeciality] = useState('684da614426fd859f10cd93e');
   const [degree, setDegree] = useState('');
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
@@ -28,6 +26,9 @@ const AddDoctor = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    console.log(speciality);
+
 
     if (password !== confirmPassword) {
       setLoading(false);
@@ -58,6 +59,8 @@ const AddDoctor = () => {
       setName('');
       setEmail('');
       setPassword('');
+      setConfirmPassword('');
+      setExperience('1 Year');
       setFees('');
       setAbout('');
       setAddress1('');
