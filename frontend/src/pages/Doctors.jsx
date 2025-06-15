@@ -44,7 +44,7 @@ const Doctors = () => {
           {
             // check if speciality is selected and its status is 'Coming Soon'
             specialities?.find(item => item.name === speciality)?.status === 'Coming Soon' ? (
-              <div className="col-span-full text-center mt-10 bg-yellow-50 rounded-xl p-6">
+              <div className="col-span-full text-center bg-yellow-50 rounded p-6">
                 <p className="text-xl font-semibold text-yellow-700">Coming Soon</p>
                 <p className="text-sm text-yellow-600 mt-1">Doctors for this speciality will be available soon.</p>
               </div>
