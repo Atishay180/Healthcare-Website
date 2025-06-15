@@ -44,9 +44,14 @@ const Doctors = () => {
           {
             // check if speciality is selected and its status is 'Coming Soon'
             specialities?.find(item => item.name === speciality)?.status === 'Coming Soon' ? (
-              <div className="col-span-full text-center bg-yellow-50 rounded p-6">
-                <p className="text-xl font-semibold text-yellow-700">Coming Soon</p>
-                <p className="text-sm text-yellow-600 mt-1">Doctors for this speciality will be available soon.</p>
+              <div className="col-span-full text-center bg-yellow-50 rounded px-6 py-10">
+                <p className="text-4xl font-semibold text-yellow-700">Coming Soon</p>
+                <p className="text-lg text-yellow-600 mt-3">Doctors for this speciality will be available soon.</p>
+                <p className="text-sm text-yellow-600 mt-3 italic">
+                  {
+                    specialities.find(item => item.name === speciality)?.description || "No description available."
+                  }
+                </p>
               </div>
             ) : (
               // Then check if doctor list is empty
