@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { Doctor } from "../models/doctor.model.js";
 import { Appointment } from "../models/appointment.model.js";
+import { Speciality } from "../models/speciality.model.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -161,6 +162,29 @@ const getUserProfile = async (req, res) => {
     }
 }
 
+// api for getting all specialities
+const allSpecialities = async (req, res) => {
+    try {
+        const specialities = await Speciality.find({});
+
+        if (specialities.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "No specialities found", success: false });
+        }
+
+        return res
+            .status(200)
+            .json({ message: "Specialities fetched successfully", success: true, specialities });
+
+    } catch (error) {
+        console.log("error in allSpecialities controller: ", error.message);
+        return res
+            .status(500)
+            .json({ message: "Internal server error", success: false });
+    }
+}
+
 // api to update user profile
 const updateUserProfile = async (req, res) => {
     try {
@@ -288,4 +312,4 @@ const bookAppointment = async (req, res) => {
     }
 }
 
-export { registerUser, loginUser, getUserProfile, updateUserProfile, bookAppointment };
+export { registerUser, loginUser, getUserProfile, allSpecialities, updateUserProfile, bookAppointment };

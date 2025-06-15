@@ -8,6 +8,7 @@ const AppContextProvider = (props) => {
     const currencySymbol = '$';
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [doctors, setDoctors] = useState([]);
+    const [specialities, setSpecialities] = useState([]);
 
     const [token, setToken] = useState(
         localStorage.getItem('token') ?
@@ -27,6 +28,15 @@ const AppContextProvider = (props) => {
         }
     }
 
+    const getAllSpecialities = async () => {
+        try {
+            const { data } = await axios.get(`${backendUrl}/api/user/all-specialities`, { headers: { token } });
+            setSpecialities(data.specialities);
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something Went Wrong")
+        }
+    }
+
     const getUserProfileData = async () => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/user/get-profile`, { headers: { token } })
@@ -43,11 +53,13 @@ const AppContextProvider = (props) => {
         token, setToken,
         backendUrl,
         userData, setUserData,
-        getUserProfileData
+        getUserProfileData,
+        specialities
     }
 
     useEffect(() => {
         getDoctorsData();
+        getAllSpecialities();
     }, [])
 
     useEffect(() => {
