@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { AdminContext } from '../../context/AdminContext';
+import Loader from '../../components/Loader';
 
 const AddSpeciality = () => {
     const [name, setName] = useState('');
@@ -28,7 +29,7 @@ const AddSpeciality = () => {
             toast.error(error.response?.data?.message || error.message || 'Something went wrong');
         } finally {
             setLoading(false);
-        } 
+        }
     }
 
     return (
@@ -38,7 +39,7 @@ const AddSpeciality = () => {
             <div className='bg-white px-8 py-8 border rounded w-full max-w-4xl'>
                 <div className='flex flex-col gap-5 text-gray-600'>
                     <div className='flex flex-col gap-1'>
-                        <p>Speciality Name</p>
+                        <p>Speciality Name <span className='text-red-400'>*</span></p>
                         <input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -50,7 +51,7 @@ const AddSpeciality = () => {
                     </div>
 
                     <div className='flex flex-col gap-1'>
-                        <p>Status</p>
+                        <p>Status <span className='text-red-400'>*</span></p>
                         <select
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
@@ -65,7 +66,7 @@ const AddSpeciality = () => {
                     </div>
 
                     <div className='flex flex-col gap-1'>
-                        <p>Description</p>
+                        <p>Description <span className='text-red-400'>*</span></p>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -76,8 +77,11 @@ const AddSpeciality = () => {
                         ></textarea>
                     </div>
 
-                    <button type='submit' className='bg-primary px-10 py-3 mt-4 text-white rounded-full cursor-pointer'>
-                        Add Speciality
+                    <button type='submit' className='bg-primary flex items-center justify-center px-10 py-3 h-12 mt-4 text-white rounded-full cursor-pointer'>
+                        {loading
+                            ? <Loader properties={{height: 20, color: '#ffffff' }} />
+                            : 'Add Speciality'
+                        }
                     </button>
                 </div>
             </div>

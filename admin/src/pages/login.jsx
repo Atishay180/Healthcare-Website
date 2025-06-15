@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { AdminContext } from '../context/AdminContext';
 import axios from "axios";
 import { toast } from 'react-hot-toast';
+import Loader from '../components/Loader';
 
 const Login = () => {
     const [state, setState] = useState('Admin');
@@ -9,10 +10,13 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const { setToken, backendUrl } = useContext(AdminContext);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             if (state === 'Admin') {
@@ -26,6 +30,8 @@ const Login = () => {
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Something went wrong');
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -53,7 +59,12 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button className='bg-primary text-white w-full py-2 rounded-md text-base cursor-pointer'>Login</button>
+                <button className='bg-primary text-white w-full h-11 py-2 flex items-center justify-center rounded-md text-base cursor-pointer'>
+                    {loading
+                        ? <Loader properties={{ height: 15, color: '#ffffff' }} />
+                        : 'Login'
+                    }
+                </button>
 
                 {
                     state === 'Admin'

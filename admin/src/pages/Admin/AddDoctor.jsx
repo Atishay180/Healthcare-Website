@@ -4,6 +4,7 @@ import { AdminContext } from '../../context/AdminContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Loader from '../../components/Loader';
 
 const AddDoctor = () => {
   const { backendUrl, token, specialities } = useContext(AdminContext);
@@ -12,6 +13,7 @@ const AddDoctor = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [experience, setExperience] = useState('1 Year');
   const [fees, setFees] = useState('');
   const [about, setAbout] = useState('');
@@ -20,9 +22,17 @@ const AddDoctor = () => {
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    if (password !== confirmPassword) {
+      setLoading(false);
+      return toast.error('Passwords do not match');
+    }
 
     try {
       if (!docImg) {
@@ -55,6 +65,8 @@ const AddDoctor = () => {
       setDegree('');
     } catch (error) {
       toast.error(error.response?.data?.message || error.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -81,7 +93,7 @@ const AddDoctor = () => {
         <div className='flex flex-col lg:flex-row items-start gap-10 text-gray-600'>
           <div className='w-full lg:flex-1 flex flex-col gap-4'>
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Doctor Name</p>
+              <p>Doctor Name <span className='text-red-400'>*</span></p>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -93,7 +105,7 @@ const AddDoctor = () => {
             </div>
 
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Doctor Email</p>
+              <p>Doctor Email <span className='text-red-400'>*</span></p>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -105,7 +117,7 @@ const AddDoctor = () => {
             </div>
 
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Doctor Password</p>
+              <p>Doctor Password <span className='text-red-400'>*</span></p>
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +129,19 @@ const AddDoctor = () => {
             </div>
 
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Experience</p>
+              <p>Confirm Password <span className='text-red-400'>*</span></p>
+              <input
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className='border rounded px-3 py-2'
+                type="password"
+                placeholder='Password'
+                required
+              />
+            </div>
+
+            <div className='flex-1 flex flex-col gap-1'>
+              <p>Experience <span className='text-red-400'>*</span></p>
               <select
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
@@ -138,25 +162,12 @@ const AddDoctor = () => {
                 <option value="10 Year"> 10 Year +</option>
               </select>
             </div>
-
-            <div className='flex-1 flex flex-col gap-1'>
-              <p>Fees</p>
-              <input
-                value={fees}
-                onChange={(e) => setFees(e.target.value)}
-                className='border rounded px-3 py-2'
-                type="number"
-                placeholder='fees'
-                required
-              />
-            </div>
-
           </div>
 
           {/* right side */}
           <div className='w-full lg:flex-1 flex flex-col gap-4'>
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Speciality</p>
+              <p>Speciality <span className='text-red-400'>*</span></p>
               <select
                 value={speciality}
                 onChange={(e) => setSpeciality(e.target.value)}
@@ -173,7 +184,7 @@ const AddDoctor = () => {
             </div>
 
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Education</p>
+              <p>Education <span className='text-red-400'>*</span></p>
               <input
                 value={degree}
                 onChange={(e) => setDegree(e.target.value)}
@@ -185,7 +196,19 @@ const AddDoctor = () => {
             </div>
 
             <div className='flex-1 flex flex-col gap-1'>
-              <p>Address</p>
+              <p>Fees <span className='text-red-400'>*</span></p>
+              <input
+                value={fees}
+                onChange={(e) => setFees(e.target.value)}
+                className='border rounded px-3 py-2'
+                type="number"
+                placeholder='fees'
+                required
+              />
+            </div>
+
+            <div className='flex-1 flex flex-col gap-1'>
+              <p>Address <span className='text-red-400'>*</span></p>
               <input
                 value={address1}
                 onChange={(e) => setAddress1(e.target.value)}
@@ -209,7 +232,7 @@ const AddDoctor = () => {
 
         {/* bottom centered part */}
         <div>
-          <p className='mt-4 mb-2'>About Doctor</p>
+          <p className='mt-4 mb-2'>About Doctor <span className='text-red-400'>*</span></p>
           <textarea
             value={about}
             onChange={(e) => setAbout(e.target.value)}
@@ -220,7 +243,12 @@ const AddDoctor = () => {
           />
         </div>
 
-        <button type='submit' className='bg-primary px-10 py-3 mt-4 text-white rounded-full cursor-pointer'>Add doctor</button>
+        <button type='submit' className='bg-primary px-10 py-3 h-11 mt-4 flex items-center justify-center text-white rounded-full cursor-pointer'>
+          {loading
+            ? <Loader properties={{ height: 17, color: '#ffffff' }} />
+            : 'Add doctor'
+          }
+        </button>
       </div>
     </form>
   )
