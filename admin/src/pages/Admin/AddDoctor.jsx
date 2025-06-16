@@ -247,7 +247,11 @@ const AddDoctor = () => {
             />
           </div>
 
-          <button type='submit' className='bg-primary px-10 py-3 h-11 mt-4 flex items-center justify-center text-white rounded-full cursor-pointer'>
+          <button
+            disabled={loading}
+            type='submit'
+            className='bg-primary px-10 py-3 h-11 mt-4 flex items-center justify-center text-white rounded-full cursor-pointer'
+          >
             {loading
               ? <Loader properties={{ height: 17, color: '#ffffff' }} />
               : 'Add doctor'

@@ -78,7 +78,11 @@ const AddSpeciality = () => {
                             ></textarea>
                         </div>
 
-                        <button type='submit' className='bg-primary flex items-center justify-center px-10 py-3 h-12 mt-4 text-white rounded-full cursor-pointer'>
+                        <button
+                            disabled={loading}
+                            type='submit'
+                            className='bg-primary flex items-center justify-center px-10 py-3 h-12 mt-4 text-white rounded-full cursor-pointer'
+                        >
                             {loading
                                 ? <Loader properties={{ height: 20, color: '#ffffff' }} />
                                 : 'Add Speciality'

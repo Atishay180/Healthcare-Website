@@ -187,6 +187,7 @@ const Appointment = () => {
         </div>
 
         <button
+          disabled={loading}
           onClick={bookAppointment}
           className='bg-primary text-white text-sm font-light px-14 py-3 w-64 rounded-full my-6'
         >

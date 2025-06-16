@@ -59,7 +59,10 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button className='bg-primary text-white w-full h-11 py-2 flex items-center justify-center rounded-md text-base cursor-pointer'>
+                <button
+                    disabled={loading}
+                    className='bg-primary text-white w-full h-11 py-2 flex items-center justify-center rounded-md text-base cursor-pointer'
+                >
                     {loading
                         ? <Loader properties={{ height: 15, color: '#ffffff' }} />
                         : 'Login'
