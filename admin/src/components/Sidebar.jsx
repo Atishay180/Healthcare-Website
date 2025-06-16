@@ -1,45 +1,74 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { AdminContext } from '../context/AdminContext';
 import { NavLink } from "react-router-dom";
-import { assets } from '../assets/assets';
+
+// React Icons
+import { MdDashboard, MdAddBox } from 'react-icons/md';
+import { FaRegCalendarAlt, FaUserMd } from 'react-icons/fa';
+import { HiUsers } from 'react-icons/hi';
 
 const Sidebar = () => {
-
   const { token } = useContext(AdminContext);
 
   return (
     <div className='min-h-screen bg-white border-r'>
-      {
-        token &&
+      {token && (
         <ul className='text-[#515151] mt-5'>
-          <NavLink className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`} to={'/admin-dashboard'}>
-            <img src={assets.home_icon} alt="" />
-            <p>Dashboard</p>
+
+          <NavLink
+            to={'/admin-dashboard'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+            }
+          >
+            <MdDashboard className='text-2xl' />
+            <p className='hidden md:block'>Dashboard</p>
           </NavLink>
 
-          <NavLink className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`} to={'/all-appointments'}>
-            <img src={assets.appointment_icon} alt="" />
-            <p>Appointment</p>
+          <NavLink
+            to={'/all-appointments'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+            }
+          >
+            <FaRegCalendarAlt className='text-2xl' />
+            <p className='hidden md:block'>Appointment</p>
           </NavLink>
 
-          <NavLink className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`} to={'/add-speciality'}>
-            <img src={assets.add_icon} alt="" />
-            <p>Add Speciality</p>
+          <NavLink
+            to={'/add-speciality'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+            }
+          >
+            <MdAddBox className='text-2xl' />
+            <p className='hidden md:block'>Add Speciality</p>
           </NavLink>
 
-          <NavLink className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`} to={'/add-doctor'}>
-            <img src={assets.add_icon} alt="" />
-            <p>Add Doctor</p>
+          <NavLink
+            to={'/add-doctor'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+            }
+          >
+            <FaUserMd className='text-2xl' />
+            <p className='hidden md:block'>Add Doctor</p>
           </NavLink>
 
-          <NavLink className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`} to={'/doctor-list'}>
-            <img src={assets.people_icon} alt="" />
-            <p>Doctors List</p>
+          <NavLink
+            to={'/doctor-list'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+            }
+          >
+            <HiUsers className='text-2xl' />
+            <p className='hidden md:block'>Doctors List</p>
           </NavLink>
+
         </ul>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
