@@ -2,7 +2,7 @@ import React from 'react';
 
 const AlertBox = ({ question = "Are you sure?", onYes, onNo }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
       <div className="bg-white rounded-xl shadow-lg w-80 p-6 text-center animate-scale-in">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">{question}</h2>
         <div className="flex justify-center gap-4 mt-6">

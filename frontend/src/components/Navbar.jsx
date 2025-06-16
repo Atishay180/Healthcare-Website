@@ -10,11 +10,31 @@ const Navbar = () => {
     const { token, setToken, userData } = useContext(AppContext);
 
     const [showMenu, setShowMenu] = useState(false);
+
+    // Function to handle alert component
+    const showConfirmation = (message, action) => {
+        setAlertMessage(message);
+        setAlertAction(() => action);
+        setShowAlert(true);
+    };
+
+
     const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertAction, setAlertAction] = useState(() => { });
+
+
     const { logout } = useContext(AuthContext);
 
     const handleLogout = () => {
         logout({ token, setToken });
+        setShowAlert(false);
+    }
+
+    const adminURL = import.meta.env.VITE_ADMIN_URL;
+
+    const handleAdminLogin = () => {
+        window.location.href = adminURL;
         setShowAlert(false);
     }
 
@@ -56,16 +76,30 @@ const Navbar = () => {
                                     <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
                                         <p onClick={() => navigate('my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                                         <p onClick={() => navigate('my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
-                                        <p onClick={() => setShowAlert(true)} className='hover:text-black cursor-pointer'>Logout</p>
+                                        <p onClick={() => showConfirmation("Are you sure you want to logout?", handleLogout)} className='hover:text-black cursor-pointer'>Logout</p>
                                     </div>
                                 </div>
                             </div>
-                            : <button onClick={() => navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
+                            :
+                            <div className='flex items-center gap-3'>
+                                <button
+                                    onClick={() => navigate('/login')}
+                                    className='bg-primary text-white hover:scale-95 transition-all duration-75 px-4 py-2 rounded-full font-light hidden md:block'
+                                >
+                                    Create Account
+                                </button>
+                                <button
+                                    onClick={() => showConfirmation("You will be redirected to the admin login page. Are you sure you want to continue?", handleAdminLogin)}
+                                    className='text-primary border border-primary bg-white hover:scale-95 transition-all duration-75 px-4 py-2 rounded-full font-light hidden md:block'
+                                >
+                                    Admin Login
+                                </button>
+                            </div>
                     }
 
                     <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
                     {/* -------------Mobile Menu------------- */}
-                    <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
+                    <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all duration-300`}>
                         <div className='flex items-center justify-between px-5 py-6'>
                             <img className='w-36' src={assets.logo} alt="" />
                             <img className='w-7' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
@@ -93,8 +127,8 @@ const Navbar = () => {
 
             {showAlert && (
                 <AlertBox
-                    question="Are you sure you want to logout?"
-                    onYes={handleLogout}
+                    question={alertMessage}
+                    onYes={alertAction}
                     onNo={() => setShowAlert(false)}
                 />
             )}
