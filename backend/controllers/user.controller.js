@@ -312,4 +312,28 @@ const bookAppointment = async (req, res) => {
     }
 }
 
-export { registerUser, loginUser, getUserProfile, allSpecialities, updateUserProfile, bookAppointment };
+// api to fetch user appointment
+const listAppointment = async (req, res) => {
+    try {
+        const { userId } = req.body
+
+        const appointments = await Appointment.find({ userId })
+
+        if (appointments.length === 0) {
+            return res
+                .status(400)
+                .json({ success: false, message: "No appointments found" })
+        }
+
+        return res
+            .status(200)
+            .json({ success: true, appointments })
+    } catch (error) {
+        console.error("Error in bookAppointment:", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+    }
+}
+
+export { registerUser, loginUser, getUserProfile, allSpecialities, updateUserProfile, bookAppointment, listAppointment };
