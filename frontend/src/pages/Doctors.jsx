@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom"
 import { AppContext } from '../context/AppContext';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 const Doctors = () => {
   const { speciality } = useParams();
   const [filterDoc, setFilterDoc] = useState([]);
@@ -10,6 +13,14 @@ const Doctors = () => {
   const { specialities, doctors } = useContext(AppContext);
 
   const navigate = useNavigate();
+
+  // Initialize AOS for animations
+  useEffect(() => {
+    AOS.init({
+      duration: 700, // Animation duration in milliseconds
+      once: true,
+    });
+  }, []);
 
   const applyFilter = () => {
     if (speciality) {
@@ -29,8 +40,10 @@ const Doctors = () => {
       <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
         <button className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? 'bg-primary text-white' : ''}`} onClick={() => setShowFilter(prev => !prev)}>Filters</button>
         <div className={`flex flex-col gap-4 text-sm text-gray-600 ${showFilter ? 'flex' : 'hidden sm:flex'}`}>
-          {specialities && specialities.map((item) => (
+          {specialities && specialities.map((item, index) => (
             <p
+              data-aos="fade-right"
+              data-aos-delay={index * 100}
               key={item._id}
               onClick={() => speciality === item.name ? navigate('/doctors') : navigate(`/doctors/${item.name}`)}
               className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality === item.name ? "bg-indigo-100 text-black" : ""}`}
@@ -64,7 +77,13 @@ const Doctors = () => {
                 // If there are doctors, display them
                 : (
                   filterDoc.map((item, index) => (
-                    <div onClick={() => navigate(`/appointment/${item._id}`)} className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500' key={index}>
+                    <div
+                      data-aos="fade-left"
+                      data-aos-delay={index * 100}
+                      onClick={() => navigate(`/appointment/${item._id}`)}
+                      className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'
+                      key={index}
+                    >
                       <img className='bg-blue-50' src={item.image} alt={item.name} />
                       <div className='p-4'>
                         <div className='flex items-center gap-2 text-sm text-center text-green-500'>

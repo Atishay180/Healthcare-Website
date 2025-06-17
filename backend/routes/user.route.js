@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/register", registerUser)
 router.post("/login", loginUser)
 router.get("/get-profile", authUser, getUserProfile)
-router.get("/all-specialities", authUser, allSpecialities)
+router.get("/all-specialities", allSpecialities)
 router.post("/update-profile", upload.single('image'), authUser, updateUserProfile)
 router.post("/book-appointment", authUser, bookAppointment)
 
