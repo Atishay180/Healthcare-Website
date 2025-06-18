@@ -336,4 +336,64 @@ const listAppointment = async (req, res) => {
     }
 }
 
-export { registerUser, loginUser, getUserProfile, allSpecialities, updateUserProfile, bookAppointment, listAppointment };
+// api to cancel the appointment
+const cancelAppointment = async (req, res) => {
+    try {
+        const { userId, appointmentId } = req.body;
+
+        if (!userId) {
+            return res
+                .status(400)
+                .json({ success: false, message: "No User Found" });
+        }
+
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return res
+                .status(400)
+                .json({ success: false, message: "No Appointment Found" });
+        }
+
+        if (appointment.userId.toString() !== userId.toString()) {
+            return res
+                .status(403)
+                .json({ success: false, message: "Unauthorized Action" });
+        }
+
+        // Mark appointment as cancelled
+        await Appointment.findByIdAndUpdate(appointmentId, { cancelled: true });
+
+        // Free doctors slot
+        const { docId, slotDate, slotTime } = appointment;
+
+        const doctor = await Doctor.findById(docId);
+        if (!doctor) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Doctor not found" });
+        }
+
+        const slots_booked = doctor.slots_booked;
+        if (slots_booked[slotDate]) {
+            slots_booked[slotDate] = slots_booked[slotDate].filter(
+                (time) => time !== slotTime
+            );
+        }
+
+        await Doctor.findByIdAndUpdate(docId, { slots_booked });
+
+        return res.status(200).json({
+            success: true,
+            message: "Appointment Cancelled",
+        });
+
+    } catch (error) {
+        console.error("Error in cancelAppointment:", error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+};
+
+export { registerUser, loginUser, getUserProfile, allSpecialities, updateUserProfile, bookAppointment, listAppointment, cancelAppointment };
