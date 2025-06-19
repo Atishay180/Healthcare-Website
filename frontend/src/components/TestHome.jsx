@@ -1,29 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { assets } from '../assets/assets'
 import { FaArrowRight } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
-const Header = () => {
-
-    useEffect(() => {
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
-    }, []);
-
+const TestHome = () => {
     return (
-        <section className="w-full py-16 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-6">
+        <section className="w-full bg-[#f5f5f5] py-16 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-6">
             {/* Left Side */}
-            <div
-                className="w-full lg:w-1/2 text-center lg:text-left space-y-6"
-                data-aos="fade-right"
-            >
+            <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-black leading-snug">
                     Providing Quality <span className="text-primary">Healthcare</span> For A <br />
-                    <span className="text-tertiary">Brighter</span> And <span className="text-tertiary">Healthy</span> Future
+                    <span className="text-lime-500">Brighter</span> And <span className="text-tertiary">Healthy</span> Future
                 </h1>
 
                 <p className="text-gray-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0">
@@ -44,10 +31,7 @@ const Header = () => {
             </div>
 
             {/* Right Side */}
-            <div
-                className="w-full lg:w-1/2 relative flex items-center justify-center"
-                data-aos="fade-left"
-            >
+            <div className="w-full lg:w-1/2 relative flex items-center justify-center">
                 {/* Blob Background */}
                 <div className="absolute w-72 h-72 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] bg-gradient-to-b from-primary to-tertiary rounded-[60%_40%_30%_70%/60%_30%_60%_40%] z-0"></div>
 
@@ -67,4 +51,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default TestHome

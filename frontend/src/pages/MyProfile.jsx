@@ -85,7 +85,7 @@ const MyProfile = () => {
         <p className='text-neutral-500 underline mt-3'>CONTACT INFORMATION</p>
         <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700'>
           <p className='font-medium'>Email id:</p>
-          <p className='text-blue-500'>{userData.email}</p>
+          <p className='text-primary'>{userData.email}</p>
           <p className='font-medium'>Phone:</p>
           {
             isEdit
@@ -95,7 +95,7 @@ const MyProfile = () => {
                 value={userData.phone}
                 onChange={(e) => setUserData(prev => ({ ...prev, phone: e.target.value }))}
               />
-              : <p className='text-blue-400'>{userData.phone}</p>
+              : <p className='text-primary'>{userData.phone}</p>
           }
           <p className='font-medium'>Address</p>
           {
@@ -159,7 +159,7 @@ const MyProfile = () => {
           isEdit
             ? <button className='border border-primary h-10 w-56 px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all' onClick={updateUserProfile}>
               {loading ?
-                <Loader colors={{ primary: "#5f6FFF", secondary: "#808080" }} />
+                <Loader colors={{ primary: "#007E85", secondary: "#808080" }} />
                 :
                 "Save Information"}
             </button>
