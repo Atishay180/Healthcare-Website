@@ -12,7 +12,7 @@ const Contact = () => {
     <div>
       {/* Heading */}
       <div className='text-center text-2xl pt-10 text-gray-500' data-aos="zoom-in">
-        <p>CONTACT <span className='text-gray-700 font-semibold'>US</span></p>
+        <p className='text-primary'>CONTACT <span className='text-tertiary font-semibold'>US</span></p>
       </div>
 
       {/* Content Section */}

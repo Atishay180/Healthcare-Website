@@ -41,7 +41,11 @@ const Navbar = () => {
     return (
         <>
             <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
-                <img onClick={() => navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="" />
+                <div className='flex justify-center items-center text-lg font-semibold'>
+                    <img onClick={() => navigate('/')} className='w-11 cursor-pointer' src={assets.logo} alt="" />
+                    <p className='text-primary'>Health</p>
+                    <p className='text-tertiary'>Care</p>
+                </div>
 
                 <ul className='hidden md:flex items-start gap-5 font-medium'>
                     <NavLink to="/">
@@ -84,13 +88,13 @@ const Navbar = () => {
                             <div className='flex items-center gap-3'>
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className='bg-primary text-white hover:scale-95 transition-all duration-75 px-4 py-2 rounded-full font-light hidden md:block'
+                                    className='bg-primary text-white hover:scale-95 transition-all duration-75 px-4 py-2 rounded-lg hidden md:block'
                                 >
                                     Create Account
                                 </button>
                                 <button
                                     onClick={() => showConfirmation("You will be redirected to the admin login page. Are you sure you want to continue?", handleAdminLogin)}
-                                    className='text-primary border border-primary bg-white hover:scale-95 transition-all duration-75 px-4 py-2 rounded-full font-light hidden md:block'
+                                    className='text-primary border border-primary hover:scale-95 transition-all duration-75 px-4 py-2 rounded-lg hidden md:block'
                                 >
                                     Admin Login
                                 </button>

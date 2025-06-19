@@ -20,22 +20,24 @@ const App = () => {
   const { token } = useContext(AppContext);
 
   return (
-    <div className='mx-4 sm:mx-[10%]'>
-      <Toaster />
-      <Navbar />
-      <Routes>
-        <Route path="*" element={<ErrorPage />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/doctors' element={<Doctors />} />
-        <Route path='/doctors/:speciality' element={<Doctors />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/my-profile' element={token ? <MyProfile /> : <Login />} />
-        <Route path='/my-appointments' element={token ? <MyAppointments /> : <Login />} />
-        <Route path='/appointment/:docId' element={<Appointment />} />
-      </Routes>
-      <Footer />
+    <div className='bg-gray-100'>
+      <div className='mx-4 sm:mx-[10%]'>
+        <Toaster />
+        <Navbar />
+        <Routes>
+          <Route path="*" element={<ErrorPage />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/doctors' element={<Doctors />} />
+          <Route path='/doctors/:speciality' element={<Doctors />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/my-profile' element={token ? <MyProfile /> : <Login />} />
+          <Route path='/my-appointments' element={token ? <MyAppointments /> : <Login />} />
+          <Route path='/appointment/:docId' element={<Appointment />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   )
 }

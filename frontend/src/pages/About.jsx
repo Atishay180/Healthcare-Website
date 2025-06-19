@@ -15,7 +15,7 @@ const About = () => {
     <div>
       {/* About Us Title */}
       <div className='text-center text-2xl pt-10 text-gray-500' data-aos="zoom-in">
-        <p>ABOUT <span className='text-gray-700 font-medium'>US</span></p>
+        <p className='text-primary'>ABOUT <span className='text-tertiary font-medium'>US</span></p>
       </div>
 
       {/* Image + Description Section */}

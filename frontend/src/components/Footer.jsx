@@ -12,7 +12,11 @@ const Footer = () => {
 
                 {/* --------------left section-------------- */}
                 <div>
-                    <img className='mb-5 w-40' src={assets.logo} alt="" />
+                    <div className='flex mb-5 items-center text-2xl font-semibold'>
+                        <img onClick={() => navigate('/')} className='w-14 cursor-pointer' src={assets.logo} alt="" />
+                        <p className='text-primary'>Health</p>
+                        <p className='text-tertiary'>Care</p>
+                    </div>
                     <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non doloribus, totam minima cumque et sequi fugit inventore repudiandae nesciunt optio repellat soluta ut porro nihil libero quos excepturi culpa alias?</p>
                 </div>
 

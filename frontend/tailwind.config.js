@@ -7,7 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': "#5f6FFF"
+        // 'primary': "#5f6FFF"
+        'primary': "#007E85",
+        'secondary': '#FFFFFF',
+        'tertiary': '#6EAB36',
+        'card': '#6CCAFF'
       },
       gridTemplateColumns: {
         'auto': 'repeat(auto-fill, minmax(200px, 1fr))',
