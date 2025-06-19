@@ -19,7 +19,7 @@ const App = () => {
 
   return token
     ? (
-      <div className='bg-[#F8F9FD]'>
+      <div className='bg-gray-100'>
         <Toaster />
         <Navbar />
         <div className='flex items-start'>

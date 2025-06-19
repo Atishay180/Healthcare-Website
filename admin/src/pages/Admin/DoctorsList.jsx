@@ -18,12 +18,23 @@ const DoctorsList = () => {
               <p className='text-zinc-600 text-sm'>{item.speciality}</p>
 
               <div className='mt-2 flex items-center gap-1 text-sm'>
-                <input
-                  onChange={() => changeAvailability(item._id)}
-                  type="checkbox"
-                  checked={item.available}
-                />
-                <p>Available</p>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    onChange={() => changeAvailability(item._id)}
+                    type="checkbox"
+                    checked={item.available}
+                    className="sr-only"
+                  />
+                  <div
+                    className={`w-4 h-4 border-2 rounded-sm flex items-center justify-center transition-all ${item.available ? 'bg-tertiary border-tertiary' : 'bg-white border-gray-400'
+                      }`}
+                  >
+                    {item.available && (
+                      <div className="w-2 h-2 bg-white rounded-sm"></div>
+                    )}
+                  </div>
+                  <p className="text-sm">{item.available ? 'Available' : 'Unavailable'}</p>
+                </label>
               </div>
             </div>
 

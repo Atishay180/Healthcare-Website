@@ -20,12 +20,18 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center w-full px-4 sm:px-10 py-3 border-b bg-white'>
-                <div className='flex items-center gap-2 text-xs'>
-                    <img className='w-36 sm:w-40 cursor-pointer' src={assets.admin_logo} alt="" />
-                    <p className='border px-2.5 py-0.5 rounded-full border-gray-500 text-gray-600'>{token ? 'Admin' : 'Doctor'}</p>
+            <div className='flex justify-between font-bold items-center w-full px-4 sm:px-10 py-3 border-b bg-white'>
+                <div className='flex justify-center text-lg font-semibold'>
+                    <img className='w-11 cursor-pointer' src={assets.admin_logo} alt="" />
+                    <div className='flex justify-center items-center mr-1'>
+                        <p className='text-primary font-outfit'>Health</p>
+                        <p className='text-tertiary font-outfit'>Care</p>
+                    </div>
+                    <p className='border flex items-center justify-center font-outfit text-xs h-6 px-2.5 py-0.5 rounded-full border-primary text-primary'>{token ? 'Admin' : 'Doctor'}</p>
                 </div>
-                <button onClick={() => setShowAlert(true)} className='bg-primary text-white text-xs md:text-sm px-5 py-1 md:px-10 md:py-2 rounded-full cursor-pointer'>Logout</button>
+
+
+                <button onClick={() => setShowAlert(true)} className='bg-primary border text-white text-xs md:text-sm px-5 py-1 md:px-10 md:py-2 rounded-full cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent'>Logout</button>
             </div>
 
             {/* alert box component */}

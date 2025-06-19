@@ -1,8 +1,17 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+.font-outfit {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
 @theme {
-  --color-primary: #5F6FFF;
+  --color-primary: #007E85;
+  --color-secondary: #FFFFFF;
+  --color-tertiary: #6EAB36;
   /* --font-display: "Satoshi", "sans-serif";
   --breakpoint-3xl: 1920px;
   --color-avocado-100: oklch(0.99 0 0);
@@ -37,8 +46,4 @@
 
 ::-webkit-scrollbar {
   @apply hidden
-}
-
-* {
-  font-family: Outfit;
 }
