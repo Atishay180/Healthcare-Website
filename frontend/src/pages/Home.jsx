@@ -5,6 +5,7 @@ import TopDoctors from '../components/TopDoctors'
 import Banner from '../components/Banner'
 import DoctorSearch from '../components/DoctorSearch'
 import Stats from '../components/Stats'
+import Services from '../components/Services'
 
 const Home = () => {
   return (
@@ -12,7 +13,8 @@ const Home = () => {
       <Header />
       <DoctorSearch />
       <Stats />
-      <SpecialityMenu />
+      <Services />
+      {/* <SpecialityMenu /> */}
       <TopDoctors />
       <Banner />
     </div>

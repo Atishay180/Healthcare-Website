@@ -32,10 +32,17 @@ import doc14 from './doc14.png'
 import doc15 from './doc15.png'
 import Dermatologist from './Dermatologist.svg'
 import Gastroenterologist from './Gastroenterologist.svg'
-import General_physician from './General_physician.svg'
+// import General_physician from './General_physician.svg'
 import Gynecologist from './Gynecologist.svg'
 import Neurologist from './Neurologist.svg'
 import Pediatricians from './Pediatricians.svg'
+
+import Cardiologist from './Cardiologist.png'
+import General_physician from './General_physician.png'
+import Ophthalmologist from './Ophthalmologist.png'
+import Orthodontist from './Orthodontist.png'
+import Orthopedic from './Orthopedic.png'
+import Surgeon from './Surgeon.png'
 
 
 export const assets = {
@@ -55,10 +62,37 @@ export const assets = {
     dropdown_icon,
     upload_icon,
     stripe_logo,
-    razorpay_logo
+    razorpay_logo,
+
+    Cardiologist,
+    General_physician,
+    Ophthalmologist,
+    Orthodontist,
+    Orthopedic,
+    Surgeon,
 }
 
 export const specialityData = [
+    {
+        speciality: 'Surgeon',
+        image: Surgeon
+    },
+    {
+        speciality: 'Orthopedic',
+        image: Orthopedic
+    },
+    {
+        speciality: 'Orthodontist',
+        image: Orthodontist
+    },
+    {
+        speciality: 'Ophthalmologist',
+        image: Ophthalmologist
+    },
+    {
+        speciality: 'Cardiologist',
+        image: Cardiologist
+    },
     {
         speciality: 'General physician',
         image: General_physician

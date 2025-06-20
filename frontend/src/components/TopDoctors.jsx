@@ -26,9 +26,9 @@ const TopDoctors = () => {
             <h1 className='text-2xl font-semibold text-primary'>Top doctors to book</h1>
             <p className='sm:w-1/3 text-center text-sm'>Simply browse through our extensive list of trusted doctors.</p>
             <div className="w-full flex flex-wrap justify-center gap-6 pt-5">
-                {doctors.slice(0, 10).map((item, index) => (
+                {doctors && doctors.slice(0, 10).map((item, index) => (
                     <div
-                        key={index}
+                        key={item._id}
                         onClick={() => {
                             navigate(`/appointment/${item._id}`);
                             scrollTo(0, 0);
