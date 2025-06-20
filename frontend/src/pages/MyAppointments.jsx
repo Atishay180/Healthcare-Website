@@ -35,7 +35,6 @@ const MyAppointments = () => {
       const { data } = await axios.get(`${backendUrl}/api/user/appointments`, { headers: { token } });
 
       setAppointments(data.appointments.reverse())
-      console.log(data.appointments);
 
     } catch (error) {
       toast.error(error.response?.data?.message || error.message || "Something Went Wrong");
