@@ -6,6 +6,11 @@ const specialitySchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    matchingName: {
+        type: String,
+        required: true,
+        unique: true
+    },
     doctors: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -16,6 +21,14 @@ const specialitySchema = new mongoose.Schema({
         type: String,
         enum: ['Available', 'Unavailable', 'Coming Soon'],
         required: true
+    },
+    image: {
+        type: String,
+        default: ""
+    },
+    imagePublicId: {
+        type: String,
+        default: ""
     },
     description: {
         type: String,

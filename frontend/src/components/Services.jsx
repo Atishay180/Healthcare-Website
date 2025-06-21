@@ -33,7 +33,7 @@ const Services = () => {
                         className="bg-white rounded-xl shadow-sm w-72 md:w-64 px-6 py-4 transition hover:shadow-md"
                     >
                         <img
-                            src={assets.Ophthalmologist}
+                            src={speciality.image}
                             alt={speciality.name}
                             className="rounded-md w-full h-36 object-cover mb-3 border"
                         />

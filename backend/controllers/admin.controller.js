@@ -11,6 +11,7 @@ import { Speciality } from "../models/speciality.model.js";
 const addSpeciality = async (req, res) => {
     try {
         const { name, status, description } = req.body;
+        const imageFile = req.file;
 
         if (!name || !status || !description) {
             return res
@@ -18,8 +19,11 @@ const addSpeciality = async (req, res) => {
                 .json({ message: "All fields are required", success: false })
         }
 
+        //speciality name used to identify existance 
+        const matchingName = name.replace(/\s+/g, '').toLowerCase();
+
         //check if speciality already exists
-        const specialityExists = await Speciality.findOne({ name });
+        const specialityExists = await Speciality.findOne({ matchingName });
 
         if (specialityExists) {
             return res
@@ -27,11 +31,29 @@ const addSpeciality = async (req, res) => {
                 .json({ message: "Speciality already exists", success: false })
         }
 
+        const image = "";
+        const imagePublicId = "";
+
+        if (imageFile) {
+            //upload image to cloudinary
+            const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+                resource_type: "image",
+                folder: "Health-Care/Specialities"
+            });
+
+            image = imageUpload.secure_url;
+            imagePublicId = imageUpload.public_id;
+        }
+
+
         //create speciality data
         const specialityData = {
             name,
+            matchingName,
             status,
             description,
+            image,
+            imagePublicId
         }
 
         const newSpeciality = new Speciality(specialityData);
@@ -49,11 +71,61 @@ const addSpeciality = async (req, res) => {
     }
 }
 
+// temporary controller to edit speciality
+const editSpeciality = async (req, res) => {
+    try {
+
+        const { specialityId } = req.body;
+        const imageFile = req.file;
+
+        const speciality = await Speciality.findById(specialityId)
+
+        // Normalize name
+        const matchingName = speciality.name.replace(/\s+/g, '').toLowerCase();
+
+        // Upload new image if file is provided
+        let image = speciality.image;
+        let imagePublicId = speciality.imagePublicId;
+
+        if (imageFile) {
+            // Delete old image if exists
+            if (imagePublicId) {
+                await cloudinary.uploader.destroy(imagePublicId);
+            }
+
+            const uploadResult = await cloudinary.uploader.upload(imageFile.path, {
+                resource_type: "image",
+                folder: "Health-Care/Specialities"
+            });
+
+            image = uploadResult.secure_url;
+            imagePublicId = uploadResult.public_id;
+        }
+
+        // Update the speciality
+        speciality.matchingName = matchingName;
+        speciality.image = image;
+        speciality.imagePublicId = imagePublicId;
+
+        await speciality.save();
+
+        return res
+            .status(200)
+            .json({ success: true, message: "Speciality updated successfully" });
+
+    } catch (error) {
+        console.error("Edit Speciality Error:", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal Server Error" });
+    }
+};
+
 // api for adding doctor
 const addDoctor = async (req, res) => {
     try {
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
-        const imageFile = req.file;    
+        const imageFile = req.file;
 
         //check if all fields are present
         if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address || !imageFile) {
@@ -215,4 +287,4 @@ const allSpecialities = async (req, res) => {
     }
 }
 
-export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities }
+export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities, editSpeciality }
