@@ -4,9 +4,9 @@ import { MdErrorOutline } from 'react-icons/md';
 
 const ErrorPage = () => {
   return (
-    <div className="lg:min-h-screen flex flex-col items-center justify-center px-4 text-center animate-fadeIn">
+    <div className="w-full flex flex-col items-center justify-center px-4 text-center animate-fadeIn">
 
-      <MdErrorOutline className="text-red-500 text-[90px] mb-2 drop-shadow-lg" />
+      <MdErrorOutline className="text-red-500 text-[90px] mb-2 drop-shadow-lg mt-12" />
 
       <h1 className="text-[100px] font-extrabold text-primary drop-shadow">404</h1>
 

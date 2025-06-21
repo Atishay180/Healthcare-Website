@@ -18,7 +18,7 @@ const Sidebar = () => {
           <NavLink
             to={'/admin-dashboard'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
             }
           >
             <MdDashboard className='text-2xl' />
@@ -28,7 +28,7 @@ const Sidebar = () => {
           <NavLink
             to={'/all-appointments'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
             }
           >
             <FaRegCalendarAlt className='text-2xl' />
@@ -38,7 +38,7 @@ const Sidebar = () => {
           <NavLink
             to={'/add-speciality'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
             }
           >
             <MdAddBox className='text-2xl' />
@@ -48,7 +48,7 @@ const Sidebar = () => {
           <NavLink
             to={'/add-doctor'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
             }
           >
             <FaUserMd className='text-2xl' />
@@ -58,7 +58,7 @@ const Sidebar = () => {
           <NavLink
             to={'/doctor-list'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
             }
           >
             <HiUsers className='text-2xl' />

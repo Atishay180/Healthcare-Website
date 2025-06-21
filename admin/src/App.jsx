@@ -13,6 +13,7 @@ import AllAppointments from './pages/Admin/AllAppointments';
 import AddDoctor from './pages/Admin/AddDoctor';
 import DoctorsList from './pages/Admin/DoctorsList';
 import AddSpeciality from './pages/Admin/AddSpeciality';
+import ErrorPage from './pages/Error';
 
 const App = () => {
   const { token } = useContext(AdminContext);
@@ -25,6 +26,7 @@ const App = () => {
         <div className='flex items-start'>
           <Sidebar />
           <Routes>
+            <Route path='*' element={<ErrorPage />} />
             <Route path='/' element={<></>} />
             <Route path='/admin-dashboard' element={<Dashboard />} />
             <Route path='/all-appointments' element={<AllAppointments />} />

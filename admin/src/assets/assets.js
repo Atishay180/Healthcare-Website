@@ -12,7 +12,10 @@ import appointments_icon from './appointments_icon.svg'
 import earning_icon from './earning_icon.svg'
 import patients_icon from './patients_icon.svg'
 
+import background from './background.png'
+
 export const assets = {
+    background,
     add_icon,
     admin_logo,
     appointment_icon,
