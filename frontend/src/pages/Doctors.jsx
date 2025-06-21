@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { AppContext } from '../context/AppContext';
 
 import { FaLinkedin, FaFacebookSquare } from "react-icons/fa";
@@ -17,6 +17,7 @@ const Doctors = () => {
   const { specialities, doctors } = useContext(AppContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Initialize AOS for animations
   useEffect(() => {
@@ -24,7 +25,7 @@ const Doctors = () => {
       duration: 700, // Animation duration in milliseconds
       once: true,
     });
-  }, []);
+  }, [location.pathname]);
 
   const applyFilter = () => {
     if (speciality) {
