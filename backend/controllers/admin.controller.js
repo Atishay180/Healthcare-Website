@@ -31,8 +31,8 @@ const addSpeciality = async (req, res) => {
                 .json({ message: "Speciality already exists", success: false })
         }
 
-        const image = "";
-        const imagePublicId = "";
+        let image = "";
+        let imagePublicId = "";
 
         if (imageFile) {
             //upload image to cloudinary

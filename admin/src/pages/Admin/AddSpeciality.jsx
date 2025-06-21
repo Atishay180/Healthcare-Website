@@ -4,8 +4,10 @@ import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { AdminContext } from '../../context/AdminContext';
 import Loader from '../../components/Loader';
+import { assets } from '../../assets/assets';
 
 const AddSpeciality = () => {
+    const [image, setImage] = useState(false);
     const [name, setName] = useState('');
     const [status, setStatus] = useState('Available');
     const [description, setDescription] = useState('');
@@ -20,11 +22,21 @@ const AddSpeciality = () => {
 
         setLoading(true);
         try {
-            const { data } = await axios.post(`${backendUrl}/api/admin/add-speciality`, { name, status, description }, { headers: { token } })
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('status', status);
+            formData.append('description', description);
+
+            if (image) {
+                formData.append('image', image);
+            }
+
+            const { data } = await axios.post(`${backendUrl}/api/admin/add-speciality`, formData, { headers: { token } })
             toast.success(data?.message || 'Speciality added successfully');
             setName('');
             setStatus('Available');
             setDescription('');
+            setImage(false);
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Something went wrong');
         } finally {
@@ -39,6 +51,21 @@ const AddSpeciality = () => {
 
                 <div className='bg-white px-8 py-8 border rounded w-full max-w-4xl'>
                     <div className='flex flex-col gap-5 text-gray-600'>
+
+                        <div className='flex items-center gap-4 mb-6 text-gray-500'>
+                            <label htmlFor="speciality-img">
+                                <img className='w-28 bg-gray-100 rounded-lg cursor-pointer' src={image ? URL.createObjectURL(image) : assets.speciality_upload_area} alt="" />
+                            </label>
+
+                            <input
+                                onChange={(e) => setImage(e.target.files[0])}
+                                type="file"
+                                id="speciality-img"
+                                hidden
+                            />
+                            <p>Upload speciality <br /> picture</p>
+                        </div>
+
                         <div className='flex flex-col gap-1'>
                             <p>Speciality Name <span className='text-red-400'>*</span></p>
                             <input

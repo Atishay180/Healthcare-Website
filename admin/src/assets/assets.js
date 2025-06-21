@@ -13,6 +13,7 @@ import earning_icon from './earning_icon.svg'
 import patients_icon from './patients_icon.svg'
 
 import background from './background.png'
+import speciality_upload_area from './speciality_upload_area.png'
 
 export const assets = {
     background,
@@ -28,5 +29,6 @@ export const assets = {
     list_icon,
     tick_icon,
     appointments_icon,
-    earning_icon
+    earning_icon,
+    speciality_upload_area
 }
