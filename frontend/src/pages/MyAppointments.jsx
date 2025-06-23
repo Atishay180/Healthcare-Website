@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast'
 import AlertBox from '../components/AlertBox';
 
 const MyAppointments = () => {
-  const { backendUrl, token } = useContext(AppContext);
+  const { backendUrl, token, getDoctorsData } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState([]);
@@ -51,6 +51,7 @@ const MyAppointments = () => {
 
       toast.success(data.message || "Appointment Cancelled Successfully");
       getUserAppointments();
+      getDoctorsData();
     } catch (error) {
       toast.error(error.response?.data?.message || error.message || "Something Went Wrong");
     } finally {
