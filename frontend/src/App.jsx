@@ -21,7 +21,8 @@ const App = () => {
 
   return (
     <div className='bg-gray-100'>
-      <div className='mx-4 sm:mx-[10%]'>
+      <div className='px-4 sm:px-[10%]'>
+      <div>
         <Toaster />
         <Navbar />
         <Routes>
@@ -36,8 +37,9 @@ const App = () => {
           <Route path='/my-appointments' element={token ? <MyAppointments /> : <Login />} />
           <Route path='/appointment/:docId' element={<Appointment />} />
         </Routes>
-        <Footer />
       </div>
+      </div>
+      <Footer />
     </div>
   )
 }

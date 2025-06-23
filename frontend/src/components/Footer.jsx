@@ -1,52 +1,81 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
+
 const Footer = () => {
 
     const currentYear = new Date().getFullYear();
-    const companyName = "Prescripto";
 
     return (
-        <div className='md:mx-10'>
-            <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
+        <footer className="bg-primary text-white px-6 py-10 mt-12">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
 
-                {/* --------------left section-------------- */}
-                <div>
-                    <div className='flex mb-5 items-center text-2xl font-semibold'>
-                        <img onClick={() => navigate('/')} className='w-14 cursor-pointer' src={assets.logo} alt="" />
-                        <p className='text-primary'>Health</p>
-                        <p className='text-tertiary'>Care</p>
+                {/* Left Section */}
+                <div className="md:w-1/5 flex gap-2">
+                    <div>
+                        <img className='w-12' src={assets.logo} alt="" />
                     </div>
-                    <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non doloribus, totam minima cumque et sequi fugit inventore repudiandae nesciunt optio repellat soluta ut porro nihil libero quos excepturi culpa alias?</p>
+                    <div>
+                        <h2 className="text-2xl font-semibold mb-2">Healthcare</h2>
+                        <p className="text-sm">
+                            Copyright © <span>{currentYear}</span> BRIX Templates<br />
+                            | All Rights Reserved
+                        </p>
+                    </div>
                 </div>
 
-                {/* --------------center section-------------- */}
-                <div>
-                    <p className='text-xl font-medium mb-5'>COMPANY</p>
-                    <ul className='flex flex-col gap-2 text-gray-600'>
-                        <li>Home</li>
-                        <li>About Us</li>
-                        <li>Contact Us</li>
-                        <li>Privacy Policy</li>
-                    </ul>
-                </div>
+                {/* Link Sections */}
+                <div className="flex flex-wrap gap-10 justify-between md:justify-around md:w-4/5">
 
-                {/* --------------right section-------------- */}
-                <div>
-                    <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
-                    <ul className='flex flex-col gap-2 text-gray-600'>
-                        <li>123-456-536</li>
-                        <li>prescripto@gmail.com</li>
-                    </ul>
+                    {/* Product */}
+                    <div>
+                        <h3 className="font-semibold mb-2">Product</h3>
+                        <ul className="space-y-1 text-sm text-gray-200">
+                            <li>Features</li>
+                            <li>Pricing</li>
+                            <li>Reviews</li>
+                            <li>Updates</li>
+                        </ul>
+                    </div>
+
+                    {/* Company */}
+                    <div>
+                        <h3 className="font-semibold mb-2">Company</h3>
+                        <ul className="space-y-1 text-sm text-gray-200">
+                            <li><NavLink onClick={() => scrollTo(0, 0)} to="/">Home</NavLink></li>
+                            <li><NavLink onClick={() => scrollTo(0, 0)} to="/about">About</NavLink></li>
+                            <li><NavLink onClick={() => scrollTo(0, 0)} to="/contact">Contact Us</NavLink></li>
+                            <li><NavLink onClick={() => scrollTo(0, 0)} to="/contact">Carrers</NavLink></li>
+                        </ul>
+                    </div>
+
+                    {/* Support */}
+                    <div>
+                        <h3 className="font-semibold mb-2">Support</h3>
+                        <ul className="space-y-1 text-sm text-gray-200">
+                            <li className='cursor-pointer' onClick={() => window.location.href = `https://github.com/Atishay180/Healthcare-Website`}>Getting started</li>
+                            <li className='cursor-pointer' onClick={() => window.location.href = `https://github.com/Atishay180/Healthcare-Website`}>Help center</li>
+                            <li>Chat support</li>
+                        </ul>
+                    </div>
+
+                    {/* Social */}
+                    <div>
+                        <h3 className="font-semibold mb-2">Follow us</h3>
+                        <ul className="space-y-2 text-sm text-gray-200">
+                            <li className="flex items-center gap-2"><FaFacebookF /> Facebook</li>
+                            <li className="flex items-center gap-2"><FaTwitter /> Twitter</li>
+                            <li className="flex items-center gap-2"><FaInstagram /> Instagram</li>
+                            <li className="flex items-center gap-2"><FaLinkedinIn /> LinkedIn</li>
+                            <li className="flex items-center gap-2"><FaYoutube /> YouTube</li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
-
-            {/* --------------company text-------------- */}
-            <div>
-                <hr />
-                <p className='py-5 text-sm text-center'>© {currentYear} {companyName}. All Rights Reserved</p>
-            </div>
-        </div>
+        </footer>
     )
 }
 

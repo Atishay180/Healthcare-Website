@@ -7,6 +7,8 @@ import { toast } from 'react-hot-toast'
 import AlertBox from '../components/AlertBox';
 import { useNavigate } from 'react-router-dom'
 
+import { IoMdDoneAll } from "react-icons/io";
+
 const MyAppointments = () => {
   const { backendUrl, token, getDoctorsData } = useContext(AppContext);
 
@@ -138,9 +140,9 @@ const MyAppointments = () => {
                 {!item.cancelled && item.payment &&
                   <button
                     disabled
-                    className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border'
+                    className='text-sm text-green-500 text-center sm:min-w-48 py-2 border border-green-500 flex items-center justify-center gap-2'
                   >
-                    Paid
+                    Paid <IoMdDoneAll className='text-green-500 text-2xl' />
                   </button>}
 
                 {!item.cancelled && !item.payment && 
