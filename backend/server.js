@@ -9,6 +9,7 @@ import connectCloudinary from "./config/cloudinary.js"
 import adminRouter from "./routes/admin.route.js"
 import doctorRouter from "./routes/doctor.route.js"
 import userRouter from "./routes/user.route.js"
+import Razorpay from "razorpay"
 
 dotenv.config()
 
@@ -18,7 +19,7 @@ const port = process.env.PORT || 5000
 connectCloudinary()
 
 //middleware
-app.use(express.json())
+app.use(express.json());
 app.use(cookieParser());
 
 // const allowedOrigins = [
@@ -37,6 +38,12 @@ app.use(cookieParser());
 //     credentials: true
 // }));
 app.use(cors());
+
+//razorpay instance 
+export const razorPayInstance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+});
 
 //api endpoints
 app.use("/api/admin", adminRouter)
