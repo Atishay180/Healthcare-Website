@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import toast from 'react-hot-toast';
@@ -18,6 +18,7 @@ const DoctorSearch = () => {
     const [doctor, setDoctor] = useState({});
 
     const { doctors } = useContext(AppContext);
+    const cardRef = useRef(null); // ⬅️ New ref
 
     useEffect(() => {
         AOS.init({
@@ -52,6 +53,10 @@ const DoctorSearch = () => {
         setDoctor(filteredDoc[0]);
         setName('');
         setSpeciality('');
+
+        setTimeout(() => {
+            cardRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
     };
 
     return (
@@ -89,8 +94,7 @@ const DoctorSearch = () => {
             </div>
 
             {Object.keys(doctor).length > 0 &&
-                <div className='w-full flex flex-col items-center p-5 relative'>
-
+                <div className='w-full flex flex-col items-center p-5 relative' ref={cardRef}>
                     <div
                         className="bg-white rounded-2xl shadow-md flex flex-col items-center doctors-center text-center p-6 w-72 md:w-64 transition-all duration-300 cursor-pointer"
                         data-aos="fade-up"
@@ -101,6 +105,7 @@ const DoctorSearch = () => {
                         >
                             <RxCross2 />
                         </button>
+
                         <img
                             onClick={() => {
                                 navigate(`/appointment/${doctor._id}`);
