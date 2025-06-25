@@ -9,6 +9,7 @@ const AdminContextProvider = (props) => {
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
     const [doctors, setDoctors] = useState([]);
     const [specialities, setSpecialities] = useState([]);
+    const [appointments, setAppointments] = useState([]);
 
     //speciality id 
     const [speciality, setSpeciality] = useState('');
@@ -28,11 +29,9 @@ const AdminContextProvider = (props) => {
 
     const getAllSpecialities = async () => {
         try {
-            const {data} = await axios.get(`${backendUrl}/api/admin/all-specialities`, { headers: { token } })
+            const { data } = await axios.get(`${backendUrl}/api/admin/all-specialities`, { headers: { token } })
             setSpecialities(data.specialities)
             setSpeciality(data.specialities?.[0]?._id || '')
-            
-            toast.success(data.message)
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || "Something went wrong")
         }
@@ -54,6 +53,29 @@ const AdminContextProvider = (props) => {
         }
     }
 
+    const getAllAppointments = async () => {
+        try {
+            const { data } = await axios.get(`${backendUrl}/api/admin/appointments`, { headers: { token } })
+
+            setAppointments(data.appointments);
+            console.log(data.appointments);
+
+
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong");
+        }
+    }
+
+    const cancelAppointment = async (appointmentId) => {
+        try {
+            const { data } = await axios.post(`${backendUrl}/api/admin/cancel-appointment`, { appointmentId }, { headers: { token } });
+
+            toast.success(data.message || "Appointment Cancelled")
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong");
+        }
+    }
+
     useEffect(() => {
         if (token) {
             getAllDoctors();
@@ -67,7 +89,10 @@ const AdminContextProvider = (props) => {
         doctors,
         specialities,
         changeAvailability,
-        speciality, setSpeciality
+        speciality, setSpeciality,
+        appointments, setAppointments,
+        getAllAppointments,
+        cancelAppointment
     }
 
     return <AdminContext.Provider value={value}>

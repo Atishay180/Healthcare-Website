@@ -5,6 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 import { Doctor } from "../models/doctor.model.js";
 import { Speciality } from "../models/speciality.model.js";
+import { Appointment } from "../models/appointment.model.js";
 
 
 // api for adding speciality
@@ -287,4 +288,74 @@ const allSpecialities = async (req, res) => {
     }
 }
 
-export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities, editSpeciality }
+// api to get all appointments list 
+const appointmentsAdmin = async (req, res) => {
+    try {
+        const appointments = await Appointment.find({});
+
+        if (!appointments || appointments.length === 0) {
+            return res
+                .status(400)
+                .json({ success: false, message: "No appointments found" });
+        }
+
+        return res
+            .status(200)
+            .json({ success: true, appointments });
+    } catch (error) {
+        console.log("error in appointmentsAdmin controller: ", error.message);
+        return res
+            .status(500)
+            .json({ message: "Internal server error", success: false });
+    }
+}
+
+// api for appointment cancellation 
+const cancelAppointment = async (req, res) => {
+    try {
+        const { appointmentId } = req.body;
+
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return res
+                .status(400)
+                .json({ success: false, message: "No Appointment Found" });
+        }
+
+        // Mark appointment as cancelled
+        await Appointment.findByIdAndUpdate(appointmentId, { cancelled: true });
+
+        // Free doctors slot
+        const { docId, slotDate, slotTime } = appointment;
+
+        const doctor = await Doctor.findById(docId);
+        if (!doctor) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Doctor not found" });
+        }
+
+        const slots_booked = doctor.slots_booked;
+        if (slots_booked[slotDate]) {
+            slots_booked[slotDate] = slots_booked[slotDate].filter(
+                (time) => time !== slotTime
+            );
+        }
+
+        await Doctor.findByIdAndUpdate(docId, { slots_booked });
+
+        return res.status(200).json({
+            success: true,
+            message: "Appointment Cancelled",
+        });
+
+    } catch (error) {
+        console.error("Error in cancelAppointment:", error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
+
+export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities, editSpeciality, appointmentsAdmin, cancelAppointment }

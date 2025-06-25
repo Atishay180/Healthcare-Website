@@ -1,5 +1,5 @@
 import express from "express"
-import { addDoctor, addSpeciality, allDoctors, allSpecialities, editSpeciality, loginAdmin } from "../controllers/admin.controller.js"
+import { addDoctor, addSpeciality, allDoctors, allSpecialities, appointmentsAdmin, cancelAppointment, editSpeciality, loginAdmin } from "../controllers/admin.controller.js"
 import { changeAvailability } from "../controllers/doctor.controller.js";
 
 import upload from "../middlewares/multer.middleware.js"
@@ -14,6 +14,8 @@ adminRouter.post("/login", loginAdmin);
 adminRouter.post("/all-doctors", authAdmin, allDoctors);
 adminRouter.get("/all-specialities", authAdmin, allSpecialities);
 adminRouter.post("/change-availability", authAdmin, changeAvailability);
+adminRouter.get("/appointments", authAdmin, appointmentsAdmin);
+adminRouter.post("/cancel-appointment", authAdmin, cancelAppointment)
 
 // temporary route to edit speciality
 adminRouter.post("/edit-speciality", authAdmin, upload.single('image'), editSpeciality)
