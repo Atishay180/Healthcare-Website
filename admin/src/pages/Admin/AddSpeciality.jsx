@@ -49,12 +49,12 @@ const AddSpeciality = () => {
             <form onSubmit={handleSubmit}>
                 <p className='mb-3 text-lg font-medium'>Add Speciality</p>
 
-                <div className='bg-white px-8 py-8 border rounded w-full max-w-4xl'>
+                <div className='bg-white px-8 py-8 shadow-xl shadow-gray-400 rounded w-full max-w-6xl'>
                     <div className='flex flex-col gap-5 text-gray-600'>
 
                         <div className='flex items-center gap-4 mb-6 text-gray-500'>
                             <label htmlFor="speciality-img">
-                                <img className='w-28 bg-gray-100 rounded-lg cursor-pointer' src={image ? URL.createObjectURL(image) : assets.speciality_upload_area} alt="" />
+                                <img className='w-28 bg-transparent shadow-lg shadow-gray-300 rounded-lg cursor-pointer' src={image ? URL.createObjectURL(image) : assets.speciality_upload_area} alt="" />
                             </label>
 
                             <input
@@ -108,7 +108,7 @@ const AddSpeciality = () => {
                         <button
                             disabled={loading}
                             type='submit'
-                            className='bg-primary flex items-center justify-center px-10 py-3 h-12 mt-4 text-white rounded-full cursor-pointer'
+                            className='bg-primary flex items-center justify-center px-10 py-3 h-12 mt-4 text-white hover:scale-95 transition-all rounded-full cursor-pointer'
                         >
                             {loading
                                 ? <Loader properties={{ height: 20, color: '#ffffff' }} />

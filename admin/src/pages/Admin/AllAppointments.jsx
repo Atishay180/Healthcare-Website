@@ -16,12 +16,12 @@ const AllAppointments = () => {
   }, [token, getAllAppointments]);
 
   return (
-    <div className='w-full max-w-6xl m-5'>
+    <div className='w-full max-w-6xl m-5 font-semibold'>
       <p className='mb-3 text-lg font-medium'>All Appointments</p>
 
-      <div className='bg-white border rounded text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll'>
+      <div className='bg-white shadow-lg shadow-gray-400 rounded text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll'>
 
-        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] py-3 px-6 border-b font-medium'>
+        <div className='hidden bg-primary text-white sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] py-3 px-6 border-b font-medium'>
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
@@ -34,12 +34,12 @@ const AllAppointments = () => {
         {appointments && appointments.map((item, index) => (
           <div
             key={item._id}
-            className='flex flex-col sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] sm:items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50 gap-y-2'
+            className={`flex flex-col sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] sm:items-center text-gray-800 py-3 px-6 border-b ${index % 2 === 0 ? 'bg-teal-50' : 'bg-white'} hover:bg-blue-50 gap-y-2`}
           >
             <p className='sm:block hidden'>{index + 1}</p>
 
             <div className='flex items-center gap-2'>
-              <img className='w-8 rounded-full' src={item.userData.image} alt={item.userData.name} />
+              <img className='w-8 rounded-full shadow-md shadow-gray-300' src={item.userData.image} alt={item.userData.name} />
               <p>{item.userData.name}</p>
             </div>
 
@@ -48,7 +48,7 @@ const AllAppointments = () => {
             <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
 
             <div className='flex items-center gap-2'>
-              <img className='w-8 bg-teal-100 rounded-full' src={item.docData.image} alt={item.docData.name} />
+              <img className='w-8 bg-teal-100 rounded-full shadow-md shadow-gray-300' src={item.docData.image} alt={item.docData.name} />
               <p>{item.docData.name}</p>
             </div>
 

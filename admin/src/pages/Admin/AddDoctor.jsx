@@ -78,7 +78,7 @@ const AddDoctor = () => {
       <form onSubmit={onSubmitHandler}>
         <p className='mb-3 text-lg font-medium'>Add Doctor</p>
 
-        <div className='bg-white px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll'>
+        <div className='bg-white px-8 py-8 shadow-xl shadow-gray-400 rounded w-full max-w-6xl max-h-[90vh] overflow-y-scroll'>
           <div className='flex items-center gap-4 mb-8 text-gray-500'>
             <label htmlFor="doc-img">
               <img className='w-16 bg-gray-100 rounded-full cursor-pointer' src={docImg ? URL.createObjectURL(docImg) : assets.upload_area} alt="" />
@@ -250,7 +250,7 @@ const AddDoctor = () => {
           <button
             disabled={loading}
             type='submit'
-            className='bg-primary px-10 py-3 h-11 mt-4 flex items-center justify-center text-white rounded-full cursor-pointer'
+            className='bg-primary px-10 py-3 h-11 mt-4 flex items-center justify-center text-white hover:scale-95 transition-all rounded-full cursor-pointer'
           >
             {loading
               ? <Loader properties={{ height: 17, color: '#ffffff' }} />
