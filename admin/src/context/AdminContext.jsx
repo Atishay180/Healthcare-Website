@@ -10,6 +10,7 @@ const AdminContextProvider = (props) => {
     const [doctors, setDoctors] = useState([]);
     const [specialities, setSpecialities] = useState([]);
     const [appointments, setAppointments] = useState([]);
+    const [dashboardData, setDashboardData] = useState({});
 
     //speciality id 
     const [speciality, setSpeciality] = useState('');
@@ -76,6 +77,15 @@ const AdminContextProvider = (props) => {
         }
     }
 
+    const fetchDashboard = async () => {
+        try {
+            const { data } = await axios.get(`${backendUrl}/api/admin/dashboard`, { headers: { token } })
+            setDashboardData(data.dashboardData)
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong")
+        }
+    }
+
     useEffect(() => {
         if (token) {
             getAllDoctors();
@@ -92,7 +102,9 @@ const AdminContextProvider = (props) => {
         speciality, setSpeciality,
         appointments, setAppointments,
         getAllAppointments,
-        cancelAppointment
+        cancelAppointment,
+        fetchDashboard, 
+        dashboardData
     }
 
     return <AdminContext.Provider value={value}>

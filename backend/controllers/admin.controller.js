@@ -6,6 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { Doctor } from "../models/doctor.model.js";
 import { Speciality } from "../models/speciality.model.js";
 import { Appointment } from "../models/appointment.model.js";
+import { User } from "../models/user.model.js";
 
 
 // api for adding speciality
@@ -358,4 +359,36 @@ const cancelAppointment = async (req, res) => {
     }
 }
 
-export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities, editSpeciality, appointmentsAdmin, cancelAppointment }
+// api to get dashboard 
+const dashboard = async (req, res) => {
+    try {
+        const [doctors, users, appointments] = await Promise.all([
+            Doctor.find({}),
+            User.find({}),
+            Appointment.find({})
+        ])
+        // const doctors = await Doctor.find({});
+        // const users = await User.find({});
+        // const appointments = await Appointment.find({});
+
+        const dashboardData = {
+            doctors: doctors.length,
+            appointments: appointments.length,
+            patients: users.length,
+            latestAppointments: [...appointments].reverse().slice(0, 5)
+        }
+
+        return res
+            .status(200)
+            .json({ success: true, message: "Dashboard fetched successfully", dashboardData })
+
+    } catch (error) {
+        console.error("Error in dashboard:", error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
+
+export { addSpeciality, addDoctor, loginAdmin, allDoctors, allSpecialities, editSpeciality, appointmentsAdmin, cancelAppointment, dashboard }
