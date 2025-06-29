@@ -11,57 +11,68 @@ const Sidebar = () => {
   const { token } = useContext(AdminContext);
 
   return (
-    <div className='min-h-screen bg-white border-r'>
+    <div className='min-h-screen'>
+
       {token && (
         <ul className='text-[#515151] mt-5'>
 
           <NavLink
             to={'/admin-dashboard'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 m-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
           >
-            <MdDashboard className='text-2xl' />
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <MdDashboard className='text-2xl' />
+            </span>
             <p className='hidden md:block'>Dashboard</p>
           </NavLink>
 
           <NavLink
             to={'/all-appointments'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 m-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
           >
-            <FaRegCalendarAlt className='text-2xl' />
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <FaRegCalendarAlt className='text-2xl' />
+            </span>
             <p className='hidden md:block'>Appointment</p>
           </NavLink>
 
           <NavLink
             to={'/add-speciality'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 m-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
           >
-            <MdAddBox className='text-2xl' />
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <MdAddBox className='text-2xl' />
+            </span>
             <p className='hidden md:block'>Add Speciality</p>
           </NavLink>
 
           <NavLink
             to={'/add-doctor'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 m-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
           >
-            <FaUserMd className='text-2xl' />
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <FaUserMd className='text-2xl' />
+            </span>
             <p className='hidden md:block'>Add Doctor</p>
           </NavLink>
 
           <NavLink
             to={'/doctor-list'}
             className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 min-w-16 md:min-w-60 cursor-pointer ${isActive ? 'bg-teal-50 border-r-4 border-primary' : ''}`
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 m-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
           >
-            <HiUsers className='text-2xl' />
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <HiUsers className='text-2xl' />
+            </span>
             <p className='hidden md:block'>Doctors List</p>
           </NavLink>
 

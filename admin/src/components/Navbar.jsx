@@ -20,7 +20,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='flex justify-between font-bold items-center w-full px-4 sm:px-10 py-3 border-b bg-white'>
+            <div className='flex justify-between font-bold shadow-sm items-center w-full px-4 sm:px-10 py-3'>
                 <div className='flex justify-center text-lg font-semibold'>
                     <img className='w-11 cursor-pointer' src={assets.admin_logo} alt="" />
                     <div className='flex justify-center items-center mr-1'>
@@ -31,7 +31,7 @@ const Navbar = () => {
                 </div>
 
 
-                <button onClick={() => setShowAlert(true)} className='bg-primary border text-white text-xs md:text-sm px-5 py-1 md:px-10 md:py-2 rounded-full cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent'>Logout</button>
+                <button onClick={() => setShowAlert(true)} className='bg-primary border text-white text-xs md:text-sm px-5 py-1 md:px-10 md:py-2 rounded-lg cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent'>Logout</button>
             </div>
 
             {/* alert box component */}
