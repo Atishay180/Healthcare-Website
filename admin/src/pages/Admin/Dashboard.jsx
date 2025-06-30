@@ -1,55 +1,37 @@
-import React from 'react'
-import { useContext } from 'react'
-import { AdminContext } from '../../context/AdminContext'
-import { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
-import { FaUserDoctor } from "react-icons/fa6";
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 
-const Dashboard = () => {
+import { AdminContext } from '../../context/AdminContext';
+import { AppContext } from '../../context/AppContext';
 
-  const { fetchDashboard, dashboardData } = useContext(AdminContext);
+import DashboardTable from '../../components/dashboard/DashboardTable';
+import DashboardNotification from '../../components/dashboard/DashboardNotification';
+import DashboardCard from '../../components/dashboard/DashboardCard';
+
+const Dashboard = () => {
+  const { fetchDashboard, dashboardData, appointments } = useContext(AdminContext);
+  const { slotDateFormat } = useContext(AppContext);
 
   useEffect(() => {
-    fetchDashboard();  
+    fetchDashboard();
   }, []);
 
-  console.log(dashboardData);
-  
-
   return (
-    <div className="w-full px-6 py-6">
-      {/* Cards Container */}
-      <div className="flex flex-wrap gap-6 justify-evenly">
+    <div className="w-full px-2 md:px-6 py-6 max-h-screen overflow-y-scroll">
+      {/* Cards */}
+      <DashboardCard />
 
-        {[1, 2, 3].map((item, index) => (
-          <div
-            key={index}
-            className="max-w-sm w-full sm:w-[300px] bg-white rounded-2xl shadow-xl p-6 flex justify-between items-center hover:scale-105 transition-transform duration-300"
-          >
+      <div className="flex flex-col lg:flex-row gap-6 mt-7 w-full">
+        {/* Patient Table Section*/}
+        <DashboardTable slotDateFormat={slotDateFormat} appointments={appointments} />
 
-            <div className="flex flex-col gap-2">
-              <div className="text-2xl font-semibold text-gray-800">2</div>
-              <h1 className="text-xl font-bold text-gray-900">Appointments</h1>
-              <NavLink to="/all-appointments" className="text-sm font-semibold text-red-500 cursor-pointer hover:underline">View</NavLink>
-            </div>
-
-            <div className="flex items-center justify-center">
-              <span className="p-3 rounded-full text-3xl text-white bg-gradient-to-br from-primary to-tertiary shadow-md">
-                <FaRegCalendarAlt />
-              </span>
-            </div>
-          </div>
-        ))}
-
+        {/* Notification Section */}
+        <DashboardNotification />
       </div>
-
-      {/* Additional Section Placeholder */}
-      <div className="mt-8"></div>
     </div>
+  );
+};
 
-  )
-}
-
-export default Dashboard
+export default Dashboard;

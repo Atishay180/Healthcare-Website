@@ -59,8 +59,6 @@ const AdminContextProvider = (props) => {
             const { data } = await axios.get(`${backendUrl}/api/admin/appointments`, { headers: { token } })
 
             setAppointments(data.appointments);
-            console.log(data.appointments);
-
 
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || "Something went wrong");
@@ -71,6 +69,7 @@ const AdminContextProvider = (props) => {
         try {
             const { data } = await axios.post(`${backendUrl}/api/admin/cancel-appointment`, { appointmentId }, { headers: { token } });
 
+            getAllAppointments();
             toast.success(data.message || "Appointment Cancelled")
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || "Something went wrong");
@@ -90,6 +89,7 @@ const AdminContextProvider = (props) => {
         if (token) {
             getAllDoctors();
             getAllSpecialities();
+            getAllAppointments();
         }
     }, [token])
 

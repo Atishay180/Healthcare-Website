@@ -4,16 +4,12 @@ import { AppContext } from '../../context/AppContext';
 import { MdCancel } from 'react-icons/md';
 
 const AllAppointments = () => {
-  const { token, appointments, getAllAppointments, cancelAppointment } = useContext(AdminContext);
+  const { appointments, cancelAppointment } = useContext(AdminContext);
   const { calculateAge, slotDateFormat, currency } = useContext(AppContext);
 
   const handleCancelAppointment = (appointmentId) => {
     cancelAppointment(appointmentId);
   };
-
-  useEffect(() => {
-    getAllAppointments();
-  }, [token, getAllAppointments]);
 
   return (
     <div className='w-full max-w-6xl m-5 font-semibold'>
