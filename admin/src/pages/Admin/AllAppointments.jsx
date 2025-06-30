@@ -12,10 +12,10 @@ const AllAppointments = () => {
   };
 
   return (
-    <div className='w-full max-w-6xl m-5 font-semibold'>
-      <p className='mb-3 text-lg font-medium'>All Appointments</p>
+    <div className='w-full m-5 font-semibold p-5 rounded-xl bg-white shadow-lg'>
+      <p className='mb-3 text-lg font-medium'>Patient Appointments</p>
 
-      <div className='bg-white shadow-lg shadow-gray-400 rounded text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll'>
+      <div className='bg-white shadow-gray-400 text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll'>
 
         <div className='hidden bg-primary text-white sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] py-3 px-6 border-b font-medium'>
           <p>#</p>
@@ -30,7 +30,7 @@ const AllAppointments = () => {
         {appointments && appointments.map((item, index) => (
           <div
             key={item._id}
-            className={`flex flex-col sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] sm:items-center text-gray-800 py-3 px-6 border-b ${index % 2 === 0 ? 'bg-teal-50' : 'bg-white'} hover:bg-blue-50 gap-y-2`}
+            className={`flex flex-col sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] sm:items-center text-gray-700 py-3 px-6 border-b ${index % 2 === 0 ? 'bg-teal-50' : 'bg-white'} hover:bg-blue-50 gap-y-2`}
           >
             <p className='sm:block hidden'>{index + 1}</p>
 
