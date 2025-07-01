@@ -55,7 +55,7 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             className='border border-[#DADADA] rounded w-full p-2 mt-1'
                             type="email"
-                            placeholder='Enter "admin@prescripto.com" as email'
+                            placeholder='Enter "viewadmin@prescripto.com" as email'
                             required
                         />
                     </div>
@@ -66,7 +66,7 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             className='border border-[#DADADA] rounded w-full p-2 mt-1'
                             type="password"
-                            placeholder='Enter "admin123" as password'
+                            placeholder='Enter "view123" as password'
                             required
                         />
                     </div>

@@ -42,15 +42,10 @@ const AdminContextProvider = (props) => {
         try {
             const { data } = await axios.post(`${backendUrl}/api/admin/change-availability`, { doctorId }, { headers: { token } })
 
-            if (data.success) {
-                toast.success(data.message || "Availability Changed")
-                getAllDoctors();
-            }
-            else {
-                toast.error(error.message)
-            }
+            toast.success(data.message || "Availability Changed")
+            getAllDoctors();
         } catch (error) {
-            toast.error(error.message || "Something went wrong")
+            toast.error(error.response?.data?.message || error.message || "Something went wrong");
         }
     }
 
@@ -103,7 +98,7 @@ const AdminContextProvider = (props) => {
         appointments, setAppointments,
         getAllAppointments,
         cancelAppointment,
-        fetchDashboard, 
+        fetchDashboard,
         dashboardData
     }
 
