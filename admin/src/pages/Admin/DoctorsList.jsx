@@ -7,8 +7,7 @@ const DoctorsList = () => {
 
   return (
     <div className='m-5 max-h-[90vh] overflow-y-scroll'>
-      <h1 className='text-lg font-medium'>All Doctors</h1>
-      <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
+      <div className='w-full flex flex-wrap justify-center md:justify-normal gap-4 pt-5 gap-y-6'>
         {doctors.map((item, index) => (
           <div className='shadow-lg hover:shadow-xl rounded-xl max-w-56 overflow-hidden cursor-pointer group p-2 bg-white' key={index}>
             <img className='bg-teal-100 group-hover:bg-primary rounded-xl transition-all duration-500' src={item.image} alt="" />

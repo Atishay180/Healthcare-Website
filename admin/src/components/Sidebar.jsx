@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { MdDashboard, MdAddBox } from 'react-icons/md';
 import { FaRegCalendarAlt, FaUserMd } from 'react-icons/fa';
 import { HiUsers } from 'react-icons/hi';
+import { GiMedicalPack } from "react-icons/gi";
 
 const Sidebar = () => {
   const { token } = useContext(AdminContext);
@@ -50,6 +51,18 @@ const Sidebar = () => {
               <MdAddBox className='text-xl md:text-2xl' />
             </span>
             <p className='hidden md:block'>Add Speciality</p>
+          </NavLink>
+
+          <NavLink
+            to={'/all-specialities'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
+            }
+          >
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <GiMedicalPack className='text-xl md:text-2xl' />
+            </span>
+            <p className='hidden md:block'>Specialities</p>
           </NavLink>
 
           <NavLink

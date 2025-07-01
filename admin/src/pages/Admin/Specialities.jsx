@@ -1,37 +1,22 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react'
+import { NavLink } from 'react-router-dom'
+import { AdminContext } from '../../context/AdminContext'
 import { FaArrowRight } from 'react-icons/fa';
-import { AppContext } from '../context/AppContext';
-import { NavLink } from 'react-router-dom';
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+const Specialities = () => {
 
-const Services = () => {
-
-    const { specialities } = useContext(AppContext);
-
-    // Initialize AOS for animations
-    useEffect(() => {
-        AOS.init({
-            duration: 1000, // Animation duration in milliseconds
-            once: true,
-        });
-    }, []);
+    const { specialities } = useContext(AdminContext);
 
     return (
-        <div className='flex flex-col py-12 items-center gap-4 my-16 text-gray-900 md:mx-10'>
-            <h1 className='text-2xl font-semibold text-primary'>Our Specialities</h1>
-            <p className='sm:w-1/3 text-center text-sm'>Simply browse through our extensive list of trusted doctors.</p>
-
-            <div className="flex flex-wrap justify-center gap-6 pt-5 w-full">
+        <div className='m-5 max-h-[90vh] overflow-y-scroll'>
+            <div className="flex flex-wrap justify-center md:justify-normal gap-6 pt-5 w-full">
                 {specialities && specialities.map((speciality, index) => (
                     <div
-                        data-aos="fade-up"
                         key={speciality._id}
-                        className="bg-white rounded-xl shadow-sm w-72 md:w-64 px-6 py-4 transition hover:shadow-md"
+                        className="bg-white rounded-xl shadow-lg hover:shadow-xl hover:scale-95 w-72 md:w-64 px-6 py-4 transition duration-300"
                     >
                         <img
-                            src={speciality.image}
+                            src={speciality.image && speciality.image}
                             alt={speciality.name}
                             className="rounded-md w-full h-36 object-cover mb-3 border"
                         />
@@ -42,7 +27,7 @@ const Services = () => {
                         </p>
                         <NavLink
                             onClick={() => scrollTo(0, 0)}
-                            to="/about"
+                            to="/"
                             className="text-primary text-sm font-medium mt-4 inline-flex items-center gap-1"
                         >
                             Learn more <FaArrowRight className="text-xs" />
@@ -51,7 +36,7 @@ const Services = () => {
                 ))}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Services;
+export default Specialities
