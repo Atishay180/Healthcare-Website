@@ -18,7 +18,7 @@ const Sidebar = () => {
         <ul className='text-[#515151] mt-5'>
 
           <NavLink
-            to={'/admin-dashboard'}
+            to={'/'}
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
@@ -38,7 +38,7 @@ const Sidebar = () => {
             <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
               <FaRegCalendarAlt className='text-xl md:text-2xl' />
             </span>
-            <p className='hidden md:block'>Appointment</p>
+            <p className='hidden md:block'>Appointments</p>
           </NavLink>
 
           <NavLink
