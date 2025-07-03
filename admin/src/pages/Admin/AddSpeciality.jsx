@@ -45,16 +45,17 @@ const AddSpeciality = () => {
     }
 
     return (
-        <div className='w-full p-5'>
+        <div className='w-full p-2 md:p-5'>
             <form onSubmit={handleSubmit}>
-                <p className='mb-3 text-lg font-medium'>Add Speciality</p>
 
-                <div className='bg-white px-8 py-8 shadow-xl shadow-gray-400 rounded w-full max-w-6xl'>
+                <div className='px-8 py-8 bg-white rounded-xl w-full max-h-[90vh] shadow'>
+                    <p className='mb-3 text-lg font-medium text-primary'>Add Speciality</p>
+
                     <div className='flex flex-col gap-5 text-gray-600'>
 
-                        <div className='flex items-center gap-4 mb-6 text-gray-500'>
+                        <div className='flex items-center gap-4 mb-4 text-gray-500'>
                             <label htmlFor="speciality-img">
-                                <img className='w-28 bg-transparent shadow-lg shadow-gray-300 rounded-lg cursor-pointer' src={image ? URL.createObjectURL(image) : assets.speciality_upload_area} alt="" />
+                                <img className='w-16 md:w-20 bg-gray-100 rounded-lg cursor-pointer' src={image ? URL.createObjectURL(image) : assets.speciality_upload_area} alt="" />
                             </label>
 
                             <input
@@ -66,31 +67,35 @@ const AddSpeciality = () => {
                             <p>Upload speciality <br /> picture</p>
                         </div>
 
-                        <div className='flex flex-col gap-1'>
-                            <p>Speciality Name <span className='text-red-400'>*</span></p>
-                            <input
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className='border rounded px-3 py-2'
-                                type='text'
-                                placeholder='Enter speciality name'
-                                required
-                            />
-                        </div>
+                        <div className='flex flex-col md:flex-row justify-between gap-4'>
 
-                        <div className='flex flex-col gap-1'>
-                            <p>Status <span className='text-red-400'>*</span></p>
-                            <select
-                                value={status}
-                                onChange={(e) => setStatus(e.target.value)}
-                                className='border rounded px-3 py-2'
-                            >
-                                {statusOptions && statusOptions.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className='flex flex-col gap-1 md:w-3/5'>
+                                <p>Speciality Name <span className='text-red-400'>*</span></p>
+                                <input
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className='border rounded px-3 py-2'
+                                    type='text'
+                                    placeholder='Enter speciality name'
+                                    required
+                                />
+                            </div>
+
+                            <div className='flex flex-col gap-1 md:w-2/5'>
+                                <p>Status <span className='text-red-400'>*</span></p>
+                                <select
+                                    value={status}
+                                    onChange={(e) => setStatus(e.target.value)}
+                                    className='border rounded px-3 py-2'
+                                >
+                                    {statusOptions && statusOptions.map((option, index) => (
+                                        <option key={index} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
                         </div>
 
                         <div className='flex flex-col gap-1'>
