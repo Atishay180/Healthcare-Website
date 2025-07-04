@@ -42,7 +42,7 @@ app.use(cookieParser());
 
 
 //configure cors 
-const allowedOrigins = process.env.CORS_ORIGINS
+const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [];
 
 app.use(cors({
     origin: function (origin, callback) {
