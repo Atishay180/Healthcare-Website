@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
 
-import Login from './pages/Login'
+import Login from './pages/Login.jsx'
 import Navbar from './components/Navbar';
 
 import Sidebar from './components/Sidebar';
