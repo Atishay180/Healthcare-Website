@@ -2,6 +2,7 @@ import { User } from "../models/user.model.js";
 import { Doctor } from "../models/doctor.model.js";
 import { Appointment } from "../models/appointment.model.js";
 import { Speciality } from "../models/speciality.model.js";
+import { Notification } from "../models/Notification.model.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -301,6 +302,12 @@ const bookAppointment = async (req, res) => {
         // Update doctor's slots_booked in the database
         await Doctor.findByIdAndUpdate(docId, { slots_booked })
 
+        await Notification.create({
+            userId: newAppointment._id,
+            userType: 'Appointment',
+            message: `New appointment booked by ${user.name}`
+        })
+
         return res
             .status(201)
             .json({ success: true, message: "Appointment booked successfully", appointment: newAppointment });
@@ -384,6 +391,15 @@ const cancelAppointment = async (req, res) => {
 
         await Doctor.findByIdAndUpdate(docId, { slots_booked });
 
+        const user = await User.findById(userId);
+        const username = user?.name || 'a user';
+
+        await Notification.create({
+            userId: appointmentId,
+            userType: 'Appointment',
+            message: `An appointment was cancelled by ${username}`
+        })
+
         return res.status(200).json({
             success: true,
             message: "Appointment Cancelled",
@@ -442,11 +458,21 @@ const paymentRazorpay = async (req, res) => {
 // api to verify the payment 
 const verifyPayment = async (req, res) => {
     try {
-        const { razorpay_order_id } = req.body;
+        const { razorpay_order_id, userId } = req.body;
         const orderInfo = await razorPayInstance.orders.fetch(razorpay_order_id);
 
         if (orderInfo.status === 'paid') {
             await Appointment.findByIdAndUpdate(orderInfo.receipt, { payment: true })
+
+            const user = await User.findById(userId);
+            const username = user?.name || 'a user';
+
+            await Notification.create({
+                userId: orderInfo.receipt,
+                userType: 'Appointment',
+                message: `Payment received from ${username}`
+            })
+
             return res
                 .status(200)
                 .json({ success: true, message: "Payment Successful" })

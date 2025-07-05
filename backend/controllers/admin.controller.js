@@ -7,6 +7,7 @@ import { Doctor } from "../models/doctor.model.js";
 import { Speciality } from "../models/speciality.model.js";
 import { Appointment } from "../models/appointment.model.js";
 import { User } from "../models/user.model.js";
+import { Notification } from "../models/Notification.model.js"
 
 
 // api for adding speciality
@@ -60,6 +61,12 @@ const addSpeciality = async (req, res) => {
 
         const newSpeciality = new Speciality(specialityData);
         await newSpeciality.save();
+
+        await Notification.create({
+            userId: newSpeciality._id,
+            userType: 'Speciality',
+            message: `A new speciality "${name}" has been added to the system`
+        })
 
         return res
             .status(200)
@@ -184,6 +191,12 @@ const addDoctor = async (req, res) => {
 
         const newDoctor = new Doctor(doctorData);
         await newDoctor.save();
+
+        await Notification.create({
+            userId: newDoctor._id,
+            userType: 'Doctor',
+            message: `${name} has been added to the system`
+        })
 
         // add doctor to speciality
         await Speciality.findByIdAndUpdate(speciality,

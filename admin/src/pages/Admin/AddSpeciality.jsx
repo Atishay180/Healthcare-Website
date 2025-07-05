@@ -13,7 +13,7 @@ const AddSpeciality = () => {
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const { backendUrl, token } = useContext(AdminContext);
+    const { backendUrl, token, getAllNotifications } = useContext(AdminContext);
 
     const statusOptions = ['Available', 'Unavailable', 'Coming Soon']
 
@@ -33,6 +33,7 @@ const AddSpeciality = () => {
 
             const { data } = await axios.post(`${backendUrl}/api/admin/add-speciality`, formData, { headers: { token } })
             toast.success(data?.message || 'Speciality added successfully');
+            getAllNotifications();
             setName('');
             setStatus('Available');
             setDescription('');

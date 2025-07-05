@@ -6,7 +6,7 @@ import axios from 'axios';
 import Loader from '../../components/Loader';
 
 const AddDoctor = () => {
-  const { backendUrl, token, specialities, speciality, setSpeciality } = useContext(AdminContext);
+  const { backendUrl, token, specialities, speciality, setSpeciality, getAllNotifications } = useContext(AdminContext);
 
   const [docImg, setDocImg] = useState(false);
   const [name, setName] = useState('');
@@ -55,6 +55,8 @@ const AddDoctor = () => {
       const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, { headers: { token } });
 
       toast.success(data?.message);
+      getAllNotifications();
+      
       setDocImg(false);
       setName('');
       setEmail('');

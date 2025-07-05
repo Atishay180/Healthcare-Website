@@ -1,4 +1,5 @@
 import { Doctor } from "../models/doctor.model.js";
+import { Notification } from "../models/Notification.model.js";
 
 
 const changeAvailability = async (req, res) => {
@@ -15,6 +16,12 @@ const changeAvailability = async (req, res) => {
         }
 
         await Doctor.findByIdAndUpdate(doctorId, { available: !doctor.available });
+
+        await Notification.create({
+            userId: doctorId,
+            userType: 'Doctor',
+            message: `${doctor.name} updated his availability`
+        })
 
         return res
             .status(200)
@@ -33,7 +40,7 @@ const getAllDoctors = async (req, res) => {
     try {
         const doctors = await Doctor.find({}).select(['-password', '-email']);
 
-        if(!doctors || doctors.length === 0) {
+        if (!doctors || doctors.length === 0) {
             return res
                 .status(404)
                 .json({ success: false, message: "No doctors found" });

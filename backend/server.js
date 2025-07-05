@@ -9,6 +9,8 @@ import connectCloudinary from "./config/cloudinary.js"
 import adminRouter from "./routes/admin.route.js"
 import doctorRouter from "./routes/doctor.route.js"
 import userRouter from "./routes/user.route.js"
+import notificationRouter from "./routes/notification.route.js"
+
 import Razorpay from "razorpay"
 
 dotenv.config()
@@ -69,6 +71,7 @@ export const razorPayInstance = new Razorpay({
 app.use("/api/admin", adminRouter)
 app.use("/api/doctor", doctorRouter)
 app.use("/api/user", userRouter)
+app.use("/api/notification", notificationRouter)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

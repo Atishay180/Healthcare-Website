@@ -10,6 +10,7 @@ const AdminContextProvider = (props) => {
     const [doctors, setDoctors] = useState([]);
     const [specialities, setSpecialities] = useState([]);
     const [appointments, setAppointments] = useState([]);
+    const [notifications, setNotifications] = useState([]);
     const [dashboardData, setDashboardData] = useState({});
 
     //speciality id 
@@ -71,10 +72,19 @@ const AdminContextProvider = (props) => {
         }
     }
 
-    const fetchDashboard = async () => {
+    // const fetchDashboard = async () => {
+    //     try {
+    //         const { data } = await axios.get(`${backendUrl}/api/admin/dashboard`, { headers: { token } })
+    //         setDashboardData(data.dashboardData)
+    //     } catch (error) {
+    //         toast.error(error.response?.data?.message || error.message || "Something went wrong")
+    //     }
+    // }
+
+    const getAllNotifications = async () => {
         try {
-            const { data } = await axios.get(`${backendUrl}/api/admin/dashboard`, { headers: { token } })
-            setDashboardData(data.dashboardData)
+            const { data } = await axios.get(`${backendUrl}/api/notification/notifications`, { headers: { token } });
+            setNotifications(data.notifications);
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || "Something went wrong")
         }
@@ -88,6 +98,12 @@ const AdminContextProvider = (props) => {
         }
     }, [token])
 
+    useEffect(() => {
+        if (token) {
+            getAllNotifications();
+        }
+    }, [changeAvailability])
+
     const value = {
         token, setToken,
         backendUrl,
@@ -97,8 +113,10 @@ const AdminContextProvider = (props) => {
         speciality, setSpeciality,
         appointments, setAppointments,
         getAllAppointments,
+        notifications, setNotifications,
+        getAllNotifications,
         cancelAppointment,
-        fetchDashboard,
+        // fetchDashboard,
         dashboardData
     }
 
