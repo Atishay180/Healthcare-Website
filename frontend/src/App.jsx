@@ -15,6 +15,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { AppContext } from './context/AppContext'
 import ErrorPage from './pages/Error'
+import Prompt from './components/Prompt'
 
 const App = () => {
   const { token } = useContext(AppContext);
@@ -23,6 +24,7 @@ const App = () => {
     <div className='bg-gray-100'>
       <div className='px-4 sm:px-[10%]'>
       <div>
+        <Prompt />
         <Toaster />
         <Navbar />
         <Routes>

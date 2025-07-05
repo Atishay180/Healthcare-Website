@@ -40,9 +40,9 @@ const Doctors = () => {
   }, [doctors, speciality])
 
   return (
-    <div>
+    <div className='min-h-[80vh]'>
       <p className='text-gray-600'>Browse through the doctors specialist.</p>
-      <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
+      <div className='flex flex-col sm:flex-row items-start gap-5 mt-4'>
         <button className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? 'bg-primary text-white' : 'bg-transparent text-primary border-primary'}`} onClick={() => setShowFilter(prev => !prev)}>Filters</button>
         <div className={`flex flex-col gap-4 text-sm text-gray-600 ${showFilter ? 'flex' : 'hidden sm:flex'}`}>
           {specialities && specialities.map((item, index) => (
@@ -58,7 +58,7 @@ const Doctors = () => {
           ))}
         </div>
 
-        <div className='w-full flex flex-wrap justify-center gap-6'>
+        <div className='w-full flex flex-wrap justify-center gap-6 md:max-h-screen md:overflow-auto'>
           {
             // check if speciality is selected and its status is 'Coming Soon'
             specialities?.find(item => item.name === speciality)?.status === 'Coming Soon' ? (

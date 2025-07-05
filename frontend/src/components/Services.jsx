@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { Oval } from 'react-loader-spinner'
 
 const Services = () => {
 
@@ -41,7 +42,7 @@ const Services = () => {
                             facilisis volutpat est velitolm.
                         </p>
                         <NavLink
-                            onClick={() => scrollTo(0, 0)}
+                            onClick={() => window.scrollTo(0, 0)}
                             to="/about"
                             className="text-primary text-sm font-medium mt-4 inline-flex items-center gap-1"
                         >
@@ -49,6 +50,19 @@ const Services = () => {
                         </NavLink>
                     </div>
                 ))}
+
+                {(!specialities || specialities.length === 0) && (
+                    <div className="w-full flex justify-center items-center h-52">
+                        <Oval
+                            visible={true}
+                            height="80"
+                            width="80"
+                            color="#007E85"
+                            secondaryColor="#E0E0E0"
+                            ariaLabel="oval-loading"
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );
