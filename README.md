@@ -1,19 +1,19 @@
-# 🩺 Doctor Appointment Booking Website
+# 🩺 Health Care Website
 
-A full-featured healthcare web application where users can explore doctors, book appointments, make payments, and much more. Built with the **MERN stack** and styled using **Tailwind CSS**, this project features role-based dashboards for Customers, Doctors, and Admins with a smooth, modern UI.
+A full-featured healthcare web application where users can explore doctors, book appointments, make payments, and much more. Built with the **MERN Stack** and styled using **Tailwind CSS**, this project features role-based dashboards for Customers, Doctors, and Admins with a smooth, modern UI.
 
 ---
 
 ## 🌐 Live Demo
 
-🔗 [Live Website](Coming Soon)  
+🔗 [Live Website](https://healthcare-website-y0yg.onrender.com)  
 
 ---
 
 ## 🚀 Features
 
 - ✅ Dynamic Menu Based on Role  
-- ✅ Separate Login for Customer, Doctor & Admin  
+- ✅ Separate Login for Customer, Doctor & Admin (Role based authentication)
 - ✅ Browse Doctors with Filterable Specialities  
 - ✅ Book & Cancel Appointments  
 - ✅ Online Payment Integration  
@@ -34,32 +34,46 @@ A full-featured healthcare web application where users can explore doctors, book
 
 **Frontend:** React.js, Tailwind CSS, AOS, React Router  
 **Backend:** Node.js, Express.js, MongoDB, JWT  
-**Authentication:** Token-based Auth (JWT)  
-**Payment Gateway:** Under Progress  
+**Authentication:** Role-based Authentication (JWT)  
+**Payment Gateway:** Razorpay  
 **Image Storage:** Cloudinary  
-**Deployment:** Under Progress
+**Deployment:** Render
 
 ---
 
 ## 📸 Preview
 
-![App Preview](Coming Soom)
+![Preview](./frontend/src/assets/Preview.png)
 
 ---
 
 ## 📂 Folder Structure
 
 ```bash
-├── client/                  # React frontend
-│   ├── components/
-│   ├── pages/
-│   ├── context/
-│   └── assets/
-└── server/                  # Node/Express backend
-    ├── controllers/
-    ├── models/
-    ├── routes/
-    └── middleware/
+📁 project-root/
+├── 📁 frontend/
+│   ├── 📁 assets/
+│   ├── 📁 components/
+│   ├── 📁 pages/
+│   ├── 📁 context/
+│   └── 📄 ... (other frontend files like App.js, index.js, etc.)
+│
+├── 📁 backend/
+│   ├── 📁 controllers/
+│   ├── 📁 models/
+│   ├── 📁 routes/
+│   ├── 📁 middlewares/
+│   ├── 📁 config/
+│   └── 📄 ... (server.js, .env, etc.)
+│
+├── 📁 admin/
+│   ├── 📁 assets/
+│   ├── 📁 components/
+│   ├── 📁 pages/
+│   ├── 📁 context/
+│   └── 📄 ... (other files like App.js, index.js, etc.)
+│
+└── 📄 README.md
 ```
 
 ---
@@ -67,3 +81,9 @@ A full-featured healthcare web application where users can explore doctors, book
 ## 🙋‍♂️ Author
 - Atishay Jain
 - atishayjain8807@gmail.com
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests for any improvements or bug fixes.
