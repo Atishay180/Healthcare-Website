@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import Loader from '../components/Loader';
 
 import { assets } from '../assets/assets';
+import { DoctorContext } from '../context/DoctorContext';
 
 const Login = () => {
     const [state, setState] = useState('Admin');
@@ -15,6 +16,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const { setToken, backendUrl } = useContext(AdminContext);
+    const { setDoctoken } = useContext(DoctorContext);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -28,7 +30,11 @@ const Login = () => {
                 setToken(data.token);
                 toast.success(data?.message || "Welcome Back")
             } else {
+                const { data } = await axios.post(`${backendUrl}/api/doctor/login`, { email, password });
 
+                localStorage.setItem("doctoken", data.doctoken);
+                setDoctoken(data.doctoken);
+                toast.success(data?.success || "Welcome Back")
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Something went wrong');

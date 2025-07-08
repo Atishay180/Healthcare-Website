@@ -16,12 +16,12 @@ const DoctorDashboard = () => {
             <div className='flex justify-between'>
                 {/* appointments */}
                 <div>
-                    <DoctorDashboardAppointments />
+                    {/* <DoctorDashboardAppointments /> */}
                 </div>
 
                 {/* notifications */}
                 <div>
-                    <DoctorDashboardNotification />
+                    {/* <DoctorDashboardNotification /> */}
                 </div>
             </div>
         </div>

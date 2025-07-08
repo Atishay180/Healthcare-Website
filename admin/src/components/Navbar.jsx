@@ -3,9 +3,11 @@ import { assets } from '../assets/assets'
 import { AdminContext } from '../context/AdminContext'
 import { useNavigate } from 'react-router-dom'
 import AlertBox from './AlertBox'
+import { DoctorContext } from '../context/DoctorContext'
 
 const Navbar = () => {
     const { token, setToken } = useContext(AdminContext);
+    const { doctoken, setDoctoken } = useContext(DoctorContext);
 
     const navigate = useNavigate();
 
@@ -15,6 +17,9 @@ const Navbar = () => {
         navigate('/');
         token && setToken('');
         token && localStorage.removeItem('token');
+
+        doctoken && setDoctoken('');
+        doctoken && localStorage.removeItem('doctoken');
         setShowAlert(false);
     }
 

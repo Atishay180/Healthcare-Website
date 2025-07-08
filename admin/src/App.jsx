@@ -15,12 +15,15 @@ import DoctorsList from './pages/Admin/DoctorsList';
 import AddSpeciality from './pages/Admin/AddSpeciality';
 import ErrorPage from './pages/Error';
 import Specialities from './pages/Admin/Specialities';
+import { DoctorContext } from './context/DoctorContext.jsx';
+import DoctorDashboard from './pages/Doctor/DoctorDashboard.jsx';
 
 const App = () => {
   const { token } = useContext(AdminContext);
+  const { doctoken } = useContext(DoctorContext);
 
-  return token
-    ? (
+  if (token) {
+    return (
       <div className='bg-gray-100'>
         <Toaster />
         <Navbar />
@@ -42,12 +45,25 @@ const App = () => {
         </div>
       </div>
     )
-    : (
+  } else if (doctoken) {
+    return (
+      <div className='bg-gray-100'>
+        <Toaster />
+        <Navbar />
+        <div className='flex items-start'>
+          <Sidebar />
+          <DoctorDashboard />
+        </div>
+      </div>
+    )
+  } else {
+    return (
       <div>
         <Toaster />
         <Login />
       </div>
     )
+  }
 }
 
 export default App
