@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt"
+
 import { Doctor } from "../models/doctor.model.js";
 import { Notification } from "../models/Notification.model.js";
 
@@ -57,4 +60,47 @@ const getAllDoctors = async (req, res) => {
     }
 }
 
-export { changeAvailability, getAllDoctors };
+const loginDoctor = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        console.log(email);
+        
+
+        if (!email || !password) {
+            return res
+                .status(400)
+                .json({ success: false, message: "All fields are required" });
+        }
+
+        const existingDoctor = await Doctor.findOne({ email });
+
+        if (!existingDoctor) {
+            return res
+                .status(400)
+                .json({ success: false, message: "User does not exist" });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, existingDoctor.password);
+
+        if (!isPasswordCorrect) {
+            return res
+                .status(401)
+                .json({ success: false, message: "Invalid password" });
+        }
+
+        const doctorToken = jwt.sign({ id: existingDoctor._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+        return res
+            .status(200)
+            .json({ success: true, message: `Welcome back ${existingDoctor.name}`, doctorToken });
+
+    } catch (error) {
+        console.error("Error in login doctor controller", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+    }
+}
+
+export { changeAvailability, getAllDoctors, loginDoctor };
