@@ -34,7 +34,7 @@ const Login = () => {
 
                 localStorage.setItem("doctoken", data.doctoken);
                 setDoctoken(data.doctoken);
-                toast.success(data?.success || "Welcome Back")
+                toast.success(data?.message || "Welcome Back")
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Something went wrong');

@@ -1,14 +1,40 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
+
+import axios from "axios";
+import { AdminContext } from "./AdminContext";
+import toast from "react-hot-toast";
 
 export const DoctorContext = createContext();
 
 const DoctorContextProvider = (props) => {
+    const { backendUrl } = useContext(AdminContext);
 
     const [doctoken, setDoctoken] = useState(localStorage.getItem("doctoken") ? localStorage.getItem("doctoken") : '');
+    const [docData, setDocData] = useState(false);
+    const [docAppointments, setDocAppointments] = useState([]);
+    const [docNotifications, setDocNotifications] = useState([]);
+
+    const fetchDoctorData = async () => {
+        try {
+            const { data } = await axios.get(`${backendUrl}/api/doctor/doctor-dashboard`, { headers: { doctoken } });
+            setDocData(data.doctor);
+            setDocAppointments(data.appointments);
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong");
+        }
+    }
+
+    useEffect(() => {
+        if (doctoken) {
+            fetchDoctorData();
+        }
+    }, [doctoken]);
 
     const value = {
-        doctoken, setDoctoken
+        doctoken, setDoctoken,
+        docData, setDocData,
+        docAppointments, setDocAppointments
     }
 
     return <DoctorContext.Provider value={value}>
