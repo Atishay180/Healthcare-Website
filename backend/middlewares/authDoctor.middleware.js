@@ -2,15 +2,16 @@ import jwt from "jsonwebtoken";
 
 const authDoctor = async (req, res, next) => {
     try {
-        const { doctorToken } = req.headers;
-
-        if (!doctorToken) {
+        const { doctoken } = req.headers;
+        
+        
+        if (!doctoken) {
             return res
-                .status(401)
-                .json({ message: "Access denied, login again", success: false })
+            .status(401)
+            .json({ message: "Access denied, login again", success: false })
         }
 
-        const decoded = jwt.verify(doctorToken, process.env.JWT_SECRET);
+        const decoded = jwt.verify(doctoken, process.env.JWT_SECRET);
 
         if (!decoded) {
             return res
@@ -18,7 +19,7 @@ const authDoctor = async (req, res, next) => {
                 .json({ message: "Unauthorized Access - Invalid Token", success: false })
         }
 
-        req.body.docId = decoded.id;
+        req.body.doctorId = decoded.doctorId;
 
         next();
     } catch (error) {

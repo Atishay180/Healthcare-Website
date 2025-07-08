@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 
 import { Doctor } from "../models/doctor.model.js";
-import { Notification } from "../models/Notification.model.js";
+import { Notification } from "../models/notification.model.js";
+import { Appointment } from "../models/appointment.model.js";
 
 
 const changeAvailability = async (req, res) => {
@@ -60,12 +61,45 @@ const getAllDoctors = async (req, res) => {
     }
 }
 
+const doctorDashboard = async (req, res) => {
+    try {
+        const { doctorId } = req.body;
+
+        if (!doctorId) {
+            return res
+                .status(401)
+                .json({ success: false, message: "doctorId is required field" });
+        }
+
+        const doctor = await Doctor.findById(doctorId).select("-password");
+
+        if (!doctor) {
+            return res
+                .status(401)
+                .json({ success: false, message: "No doctor found" });
+        }
+
+        //fetch appointment 
+        const appointments = await Appointment.find({ docId: doctorId });
+
+        return res
+            .status(200)
+            .json({ success: true, message: "Dashboard fetch succesfully", doctor, appointments });
+
+    } catch (error) {
+        console.error("Error in doctor dashboard controller", error.message);
+        return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+    }
+}
+
 const loginDoctor = async (req, res) => {
     try {
         const { email, password } = req.body;
 
         console.log(email);
-        
+
 
         if (!email || !password) {
             return res
@@ -89,11 +123,11 @@ const loginDoctor = async (req, res) => {
                 .json({ success: false, message: "Invalid password" });
         }
 
-        const doctorToken = jwt.sign({ id: existingDoctor._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        const doctoken = jwt.sign({ doctorId: existingDoctor._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
         return res
             .status(200)
-            .json({ success: true, message: `Welcome back ${existingDoctor.name}`, doctorToken });
+            .json({ success: true, message: `Welcome back ${existingDoctor.name}`, doctoken });
 
     } catch (error) {
         console.error("Error in login doctor controller", error.message);
@@ -103,4 +137,4 @@ const loginDoctor = async (req, res) => {
     }
 }
 
-export { changeAvailability, getAllDoctors, loginDoctor };
+export { changeAvailability, getAllDoctors, loginDoctor, doctorDashboard };

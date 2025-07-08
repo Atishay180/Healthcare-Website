@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 import { Doctor } from "../models/doctor.model.js";
 import { Appointment } from "../models/appointment.model.js";
 import { Speciality } from "../models/speciality.model.js";
-import { Notification } from "../models/Notification.model.js";
+import { Notification } from "../models/notification.model.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
