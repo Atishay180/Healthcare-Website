@@ -216,7 +216,7 @@ const addDoctor = async (req, res) => {
     }
 }
 
-// api for admin login
+// api for admin & viewer login
 const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -235,7 +235,7 @@ const loginAdmin = async (req, res) => {
         }
 
         if (email === process.env.VIEWER_EMAIL && password === process.env.VIEWER_PASSWORD) {
-            const token = jwt.sign({ email, role: 'viewer' }, process.env.JWT_SECRET, { "expiresIn": "1d" });
+            const token = jwt.sign({ email, role: 'viewer' }, process.env.JWT_SECRET, { "expiresIn": "10d" });
             return res
                 .status(200)
                 .json({ message: "Admin logged in successfully", success: true, token })
