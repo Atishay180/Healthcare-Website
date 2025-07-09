@@ -60,7 +60,7 @@ const Login = () => {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            placeholder='Enter "test@gmail.com" as Email'
+            placeholder={state === 'Sign Up' ? '' : 'Enter "test@gmail.com" as Email'}
             required
           />
         </div>
@@ -72,7 +72,7 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            placeholder='Enter "Test1234" as password'
+            placeholder={state === 'Sign Up' ? '' : 'Enter "Test1234" as password'}
             required
           />
         </div>
