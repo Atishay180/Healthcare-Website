@@ -9,7 +9,7 @@ const DoctorDashboardAppointments = () => {
 
   return (
     <section className='w-full bg-white rounded-xl shadow-md px-4 py-4 max-h-80 md:max-h-72'>
-      <h2 className='text-xl font-semibold text-black mb-2'>Upcoming Appointments</h2>
+      <h2 className='text-lg font-semibold text-black mb-2'>Upcoming Appointments</h2>
 
       <div className='overflow-auto max-h-60 md:max-h-52'>
         <table className='w-full text-sm text-gray-700 hidden sm:table'>
