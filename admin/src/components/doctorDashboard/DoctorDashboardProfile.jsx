@@ -3,9 +3,11 @@ import { assets } from '../../assets/assets';
 import { DoctorContext } from '../../context/DoctorContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { AppContext } from '../../context/AppContext';
 
 const DoctorDashboardProfile = () => {
     const { doctoken, docData } = useContext(DoctorContext);
+    const {currency} = useContext(AppContext);
     const [availability, setAvailability] = useState(docData?.available);
 
     const handleAvailabilityChange = async () => {
@@ -71,7 +73,7 @@ const DoctorDashboardProfile = () => {
                         {/* Fee Info */}
                         <div className='flex gap-4'>
                             <p className="text-sm font-medium text-gray-700 mt-2">
-                                Appointment Fee: <span className="text-primary">₹ {docData.fees}</span>
+                                Fees: <span className="text-gray-500">{currency}{docData.fees}</span>
                             </p>
 
                             <div className="flex items-center gap-4 mt-2">

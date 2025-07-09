@@ -25,16 +25,27 @@ const DoctorContextProvider = (props) => {
         }
     }
 
+    const getAllNotifications = async () => {
+        try {
+            const { data } = await axios.get(`${backendUrl}/api/doctor/notifications`, { headers: { doctoken } });
+            setDocNotifications(data.notifications);
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong")
+        }
+    }
+
     useEffect(() => {
         if (doctoken) {
             fetchDoctorData();
+            getAllNotifications();
         }
     }, [doctoken]);
 
     const value = {
         doctoken, setDoctoken,
         docData, setDocData,
-        docAppointments, setDocAppointments
+        docAppointments, setDocAppointments,
+        docNotifications, setDocNotifications
     }
 
     return <DoctorContext.Provider value={value}>
