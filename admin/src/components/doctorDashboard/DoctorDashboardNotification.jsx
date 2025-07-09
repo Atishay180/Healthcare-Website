@@ -12,11 +12,11 @@ const DoctorDashboardNotification = () => {
   const colors = ['border-blue-500', 'border-green-500', 'border-yellow-500'];
 
   return (
-    <section className="bg-white rounded-xl w-full px-5 py-4 max-h-72 shadow-lg">
+    <section className="bg-white rounded-xl w-full px-5 py-4 max-h-80 md:max-h-72 shadow-lg">
       <h2 className="text-lg font-semibold mb-2">Notifications</h2>
 
       {docNotifications && docNotifications.length > 0 ? (
-        <ul className="flex flex-col gap-4 text-sm text-gray-700 max-h-52 overflow-auto">
+        <ul className="flex flex-col gap-4 text-sm text-gray-700 max-h-60 md:max-h-52 overflow-auto">
           {docNotifications.map((notification, index) => (
             <li
               key={notification._id}

@@ -14,7 +14,7 @@ const DoctorDashboard = () => {
     }
 
     return (
-        <div className='py-4 px-1 flex flex-col gap-4 h-screen overflow-y-scroll'>
+        <div className='py-5 px-5 flex flex-col gap-4 h-screen overflow-y-scroll'>
             {/* top */}
             {/* profile */}
             <div>
@@ -25,12 +25,12 @@ const DoctorDashboard = () => {
             {/* bottom */}
             <div className='flex justify-between flex-col md:flex-row gap-4'>
                 {/* appointments */}
-                <div className='w-full md:w-3/5'>
+                <div className='w-full md:w-4/6'>
                     <DoctorDashboardAppointments />
                 </div>
 
                 {/* notifications */}
-                <div className='w-full md:w-2/5'>
+                <div className='w-full md:w-2/6'>
                     <DoctorDashboardNotification />
                 </div>
             </div>
