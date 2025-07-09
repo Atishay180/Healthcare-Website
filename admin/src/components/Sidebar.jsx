@@ -7,9 +7,13 @@ import { MdDashboard, MdAddBox } from 'react-icons/md';
 import { FaRegCalendarAlt, FaUserMd } from 'react-icons/fa';
 import { HiUsers } from 'react-icons/hi';
 import { GiMedicalPack } from "react-icons/gi";
+import { DoctorContext } from '../context/DoctorContext';
+
+import { FaEdit } from "react-icons/fa";
 
 const Sidebar = () => {
   const { token } = useContext(AdminContext);
+  const { doctoken } = useContext(DoctorContext);
 
   return (
     <div className='min-h-screen'>
@@ -89,6 +93,36 @@ const Sidebar = () => {
             <p className='hidden md:block'>Doctors List</p>
           </NavLink>
 
+        </ul>
+      )}
+
+
+      {doctoken && (
+        <ul className='text-[#515151] mt-5'>
+
+          <NavLink
+            to={'/'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
+            }
+          >
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <MdDashboard className='text-xl md:text-2xl' />
+            </span>
+            <p className='hidden md:block'>Dashboard</p>
+          </NavLink>
+
+          <NavLink
+            to={'/edit-profile'}
+            className={({ isActive }) =>
+              `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
+            }
+          >
+            <span className='border p-1 rounded-lg bg-gradient-to-br from-primary to-tertiary text-white'>
+              <FaEdit className='text-xl md:text-2xl' />
+            </span>
+            <p className='hidden md:block'>Edit-Profile</p>
+          </NavLink>
         </ul>
       )}
     </div>

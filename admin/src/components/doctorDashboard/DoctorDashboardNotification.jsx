@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 
 const DoctorDashboardNotification = () => {
   return (
-    <section className="bg-white rounded-xl w-full lg:w-1/3 p-5 shadow-lg">
+    <section className="bg-white rounded-xl w-full p-5 shadow-lg">
       <h2 className="text-lg font-semibold mb-4">Notifications</h2>
 
       {/* {notifications && notifications.length > 0 ? (

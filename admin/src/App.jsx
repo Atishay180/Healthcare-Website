@@ -52,7 +52,10 @@ const App = () => {
         <Navbar />
         <div className='flex items-start'>
           <Sidebar />
-          <DoctorDashboard />
+          <Routes>
+            <Route path='*' element={<ErrorPage />} />
+            <Route path='/' element={<DoctorDashboard />} />
+          </Routes>
         </div>
       </div>
     )
