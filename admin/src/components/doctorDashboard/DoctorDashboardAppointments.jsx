@@ -8,10 +8,10 @@ const DoctorDashboardAppointments = () => {
   const { calculateAge, slotDateFormat, currency } = useContext(AppContext);
 
   return (
-    <section className='w-full bg-white rounded-xl shadow-md px-4 py-4 max-h-80 md:max-h-72'>
+    <section className='w-full bg-white rounded-xl shadow-md px-4 py-4 max-h-full md:max-h-72'>
       <h2 className='text-lg font-semibold text-black mb-2'>Upcoming Appointments</h2>
 
-      <div className='overflow-auto max-h-60 md:max-h-52'>
+      <div className='overflow-auto max-h-80 md:max-h-52'>
         <table className='w-full text-sm text-gray-700 hidden sm:table'>
           <thead className='bg-primary text-white'>
             <tr>
