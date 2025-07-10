@@ -6,28 +6,11 @@ import toast from 'react-hot-toast';
 import { AppContext } from '../../context/AppContext';
 
 const DoctorDashboardProfile = () => {
-    const { doctoken, docData } = useContext(DoctorContext);
-    const {currency} = useContext(AppContext);
-    const [availability, setAvailability] = useState(docData?.available);
+    const { doctoken, docData, changeAvailability } = useContext(DoctorContext);
+    const { currency } = useContext(AppContext);
 
     const handleAvailabilityChange = async () => {
-        // try {
-        //     const res = await axios.patch(
-        //         `${import.meta.env.VITE_SERVER_URL}/api/doctor/change-availability`,
-        //         { doctorId: docData._id },
-        //         {
-        //             headers: {
-        //                 doctoken: doctoken,
-        //             },
-        //         }
-        //     );
-
-        //     setAvailability((prev) => !prev);
-        //     toast.success('Availability updated');
-        // } catch (error) {
-        //     toast.error('Failed to update availability');
-        //     console.error('Error updating availability:', error);
-        // }
+        changeAvailability();
     };
 
     return (
@@ -78,10 +61,10 @@ const DoctorDashboardProfile = () => {
 
                             <div className="flex items-center gap-4 mt-2">
                                 <label className="flex items-center gap-2 text-sm text-gray-700 font-medium">
-                                    {availability ? 'Available' : 'Not Available'}
+                                    {docData.available ? 'Available' : 'Not Available'}
                                     <input
                                         type="checkbox"
-                                        checked={availability}
+                                        checked={docData.available}
                                         onChange={handleAvailabilityChange}
                                         className="w-4 h-4 accent-green-600"
                                     />

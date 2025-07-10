@@ -34,6 +34,16 @@ const DoctorContextProvider = (props) => {
         }
     }
 
+    const changeAvailability = async () => {
+        try {
+            const { data } = await axios.post(`${backendUrl}/api/doctor/change-availability`, {}, { headers: { doctoken } });
+            toast.success(data?.message || "Availability change successfully");
+            fetchDoctorData();
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message || "Something went wrong")
+        }
+    }
+
     useEffect(() => {
         if (doctoken) {
             fetchDoctorData();
@@ -45,7 +55,8 @@ const DoctorContextProvider = (props) => {
         doctoken, setDoctoken,
         docData, setDocData,
         docAppointments, setDocAppointments,
-        docNotifications, setDocNotifications
+        docNotifications, setDocNotifications,
+        changeAvailability
     }
 
     return <DoctorContext.Provider value={value}>
