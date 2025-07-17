@@ -23,6 +23,7 @@ const Sidebar = () => {
 
           <NavLink
             to={'/'}
+            id='home'
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
@@ -35,6 +36,7 @@ const Sidebar = () => {
 
           <NavLink
             to={'/all-appointments'}
+            id='all-appointments'
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
@@ -47,6 +49,7 @@ const Sidebar = () => {
 
           <NavLink
             to={'/add-speciality'}
+            id='add-speciality'
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
@@ -59,6 +62,7 @@ const Sidebar = () => {
 
           <NavLink
             to={'/all-specialities'}
+            id='all-specialities'
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
@@ -71,6 +75,7 @@ const Sidebar = () => {
 
           <NavLink
             to={'/add-doctor'}
+            id='add-doctor'
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
@@ -83,6 +88,7 @@ const Sidebar = () => {
 
           <NavLink
             to={'/doctor-list'}
+            id='doctor-list'
             className={({ isActive }) =>
               `flex items-center gap-3 py-3 px-3 md:px-9 min-w-16 md:min-w-60 my-4 mx-1 md:mx-4 rounded-lg cursor-pointer ${isActive ? 'bg-white border-r-4 border-primary shadow-lg' : ''}`
             }
