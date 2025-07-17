@@ -23,18 +23,20 @@ const MyAppointments = () => {
   const [alertAction, setAlertAction] = useState(() => { });
 
   const isAppointmentCompleted = (slotDate) => {
-    const [day, month, year] = slotDate.split("_");
+    const [day, month, year] = slotDate.split("_").map(Number);
 
-    const appointmentDate = new Date(year, month, day);
+    // Subtracting 1 from month because JS months are 0-indexed
+    const appointmentDate = new Date(year, month - 1, day);
 
-    console.log(appointmentDate);
-    
-
+    // current date (setting time to 00:00:00 to compare dates only)
     const currDate = new Date();
+    currDate.setHours(0, 0, 0, 0);
+
+    // normalizing appointment date to compare only the date part
+    appointmentDate.setHours(0, 0, 0, 0);
 
     return currDate > appointmentDate;
-
-  }
+  };
 
   const showConfirmation = (message, action, appointmentId) => {
     setAlertMessage(message);
@@ -154,44 +156,62 @@ const MyAppointments = () => {
 
 
               <div className='flex flex-col gap-2 justify-end'>
-                {!item.cancelled && isAppointmentCompleted(item.slotDate) &&
+                {/* Completed */}
+                {!item.cancelled && isAppointmentCompleted(item.slotDate) && (
                   <button
                     disabled
                     className='text-sm text-white bg-green-600 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 shadow-md hover:scale-100 transition'
                   >
                     Completed <IoCheckmarkDoneCircle className='text-white text-xl' />
                   </button>
-                }
+                )}
 
-                {!item.cancelled && item.payment && !isAppointmentCompleted(item.slotDate) &&
+                {/* Paid */}
+                {!item.cancelled && item.payment && !isAppointmentCompleted(item.slotDate) && (
                   <button
                     disabled
                     className='text-sm text-green-700 bg-green-100 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 border border-green-400 shadow-sm hover:scale-100 transition'
                   >
                     Paid <IoMdDoneAll className='text-green-700 text-xl' />
-                  </button>}
+                  </button>
+                )}
 
-                {!item.cancelled && !item.payment && !isAppointmentCompleted(item.slotDate) &&
+                {/* Pay Online */}
+                {!item.cancelled && !item.payment && !isAppointmentCompleted(item.slotDate) && (
                   <button
                     onClick={() => appointmentRazorpay(item._id)}
                     className='text-sm text-white bg-blue-600 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 shadow-md hover:bg-blue-700 active:scale-[0.98] transition-all duration-300'
                   >
-                    Pay Online <MdOutlinePayment className='text-white text-xl'/>
-                  </button>}
+                    Pay Online <MdOutlinePayment className='text-white text-xl' />
+                  </button>
+                )}
 
-                {!item.cancelled && !isAppointmentCompleted(item.slotDate) &&
+                {/* Cancel Appointment */}
+                {!item.payment && !item.cancelled && !isAppointmentCompleted(item.slotDate) && (
                   <button
                     disabled={item.payment}
-                    onClick={() => showConfirmation("Are you sure want to cancel the appointment?", cancelAppointment, item._id)}
+                    onClick={() =>
+                      showConfirmation(
+                        'Are you sure you want to cancel the appointment?',
+                        cancelAppointment,
+                        item._id
+                      )
+                    }
                     className='text-sm border text-white bg-red-600 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 shadow-md hover:bg-red-700 active:scale-[0.98] transition-all duration-300 disabled:hidden'
                   >
-                    Cancel Appointment <MdOutlineCancel className='text-white text-xl'/>
-                  </button>}
+                    Cancel Appointment <MdOutlineCancel className='text-white text-xl' />
+                  </button>
+                )}
 
-                {item.cancelled &&
-                  <button disabled className='text-sm text-red-700 bg-red-100 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 border border-red-400 shadow-sm hover:scale-100 transition'>
-                    Cancelled <FcCancel className='text-red-700 text-xl'/>
-                  </button>}
+                {/* Cancelled */}
+                {item.cancelled && (
+                  <button
+                    disabled
+                    className='text-sm text-red-700 bg-red-100 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 border border-red-400 shadow-sm hover:scale-100 transition'
+                  >
+                    Cancelled <FcCancel className='text-red-700 text-xl' />
+                  </button>
+                )}
               </div>
 
             </div>
