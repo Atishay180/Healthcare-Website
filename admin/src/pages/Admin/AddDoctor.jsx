@@ -77,7 +77,7 @@ const AddDoctor = () => {
 
   return (
     <div className='p-2 md:p-5 w-full'>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={onSubmitHandler} name='add-doctor-form'>
         <div className='bg-white px-4 sm:px-8 py-8 rounded-xl w-full max-h-[90vh] overflow-y-scroll shadow'>
           <p className='mb-6 text-xl text-center md:text-start font-semibold text-primary'>Add Doctor</p>
 
@@ -128,7 +128,7 @@ const AddDoctor = () => {
 
             <div>
               <p>Speciality <span className='text-red-400'>*</span></p>
-              <select value={speciality} onChange={(e) => setSpeciality(e.target.value)} className="w-full border px-3 py-2 rounded">
+              <select name='speciality-dropdown' value={speciality} onChange={(e) => setSpeciality(e.target.value)} className="w-full border px-3 py-2 rounded">
                 {specialities.map((item) => (
                   <option key={item._id} value={item._id}>
                     {item.name} {item.status === 'Coming Soon' ? `(${item.status})` : ''}
