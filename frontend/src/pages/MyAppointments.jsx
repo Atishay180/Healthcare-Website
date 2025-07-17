@@ -25,7 +25,7 @@ const MyAppointments = () => {
   const isAppointmentCompleted = (slotDate) => {
     const [day, month, year] = slotDate.split("_");
 
-    const appointmentDate = new Date(year, Number(month) - 1, day);
+    const appointmentDate = new Date(year, month, day);
 
     console.log(appointmentDate);
     

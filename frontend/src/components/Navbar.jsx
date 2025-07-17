@@ -139,20 +139,31 @@ const Navbar = () => {
                         </ul>
 
 
-                        <div className='flex flex-col py-5 text-sm gap-2'>
-                            <button
-                                onClick={() => {navigate('/login'), setShowMenu(false)}}
-                                className='bg-primary text-white hover:scale-95 mx-4 transition-all duration-75 px-1 py-2 rounded-lg'
-                            >
-                                Create Account
-                            </button>
-                            <button
-                                onClick={() => (showConfirmation("You will be redirected to the admin login page. Are you sure you want to continue?", handleAdminLogin), setShowMenu(false))}
-                                className='text-primary border border-primary hover:scale-95 mx-4 transition-all duration-75 px-1 py-2 rounded-lg'
-                            >
-                                Admin Login
-                            </button>
-                        </div>
+                        {!token
+                            ? <div className='flex flex-col py-5 text-sm gap-2'>
+                                <button
+                                    onClick={() => { navigate('/login'), setShowMenu(false) }}
+                                    className='bg-primary text-white hover:scale-95 mx-4 transition-all duration-75 px-1 py-2 rounded-lg'
+                                >
+                                    Create Account
+                                </button>
+                                <button
+                                    onClick={() => (showConfirmation("You will be redirected to the admin login page. Are you sure you want to continue?", handleAdminLogin), setShowMenu(false))}
+                                    className='text-primary border border-primary hover:scale-95 mx-4 transition-all duration-75 px-1 py-2 rounded-lg'
+                                >
+                                    Admin Login
+                                </button>
+                            </div>
+                            :
+                            <div className='flex flex-col py-5 text-sm gap-2'>
+                                <button
+                                    onClick={() => { showConfirmation("Are you sure you want to logout?", handleLogout), setShowMenu(false) }}
+                                    className='bg-primary text-white hover:scale-95 mx-4 transition-all duration-75 px-1 py-2 rounded-lg'
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
