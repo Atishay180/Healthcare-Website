@@ -8,6 +8,9 @@ import AlertBox from '../components/AlertBox';
 import { useNavigate } from 'react-router-dom'
 
 import { IoMdDoneAll } from "react-icons/io";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdOutlinePayment, MdOutlineCancel } from "react-icons/md";
+import { FcCancel } from "react-icons/fc";
 
 const MyAppointments = () => {
   const { backendUrl, token, getDoctorsData } = useContext(AppContext);
@@ -18,6 +21,20 @@ const MyAppointments = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertAction, setAlertAction] = useState(() => { });
+
+  const isAppointmentCompleted = (slotDate) => {
+    const [day, month, year] = slotDate.split("_");
+
+    const appointmentDate = new Date(year, Number(month) - 1, day);
+
+    console.log(appointmentDate);
+    
+
+    const currDate = new Date();
+
+    return currDate > appointmentDate;
+
+  }
 
   const showConfirmation = (message, action, appointmentId) => {
     setAlertMessage(message);
@@ -137,35 +154,45 @@ const MyAppointments = () => {
 
 
               <div className='flex flex-col gap-2 justify-end'>
-                {!item.cancelled && item.payment &&
+                {!item.cancelled && isAppointmentCompleted(item.slotDate) &&
                   <button
                     disabled
-                    className='text-sm text-green-500 text-center sm:min-w-48 py-2 border border-green-500 flex items-center justify-center gap-2'
+                    className='text-sm text-white bg-green-600 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 shadow-md hover:scale-100 transition'
                   >
-                    Paid <IoMdDoneAll className='text-green-500 text-2xl' />
+                    Completed <IoCheckmarkDoneCircle className='text-white text-xl' />
+                  </button>
+                }
+
+                {!item.cancelled && item.payment && !isAppointmentCompleted(item.slotDate) &&
+                  <button
+                    disabled
+                    className='text-sm text-green-700 bg-green-100 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 border border-green-400 shadow-sm hover:scale-100 transition'
+                  >
+                    Paid <IoMdDoneAll className='text-green-700 text-xl' />
                   </button>}
 
-                {!item.cancelled && !item.payment && 
+                {!item.cancelled && !item.payment && !isAppointmentCompleted(item.slotDate) &&
                   <button
                     onClick={() => appointmentRazorpay(item._id)}
-                    className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-primary hover:text-white transition-all duration-300'
+                    className='text-sm text-white bg-blue-600 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 shadow-md hover:bg-blue-700 active:scale-[0.98] transition-all duration-300'
                   >
-                    Pay Online
+                    Pay Online <MdOutlinePayment className='text-white text-xl'/>
                   </button>}
 
-                {!item.cancelled &&
+                {!item.cancelled && !isAppointmentCompleted(item.slotDate) &&
                   <button
                     disabled={item.payment}
                     onClick={() => showConfirmation("Are you sure want to cancel the appointment?", cancelAppointment, item._id)}
-                    className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-red-600 hover:text-white transition-all duration-300'
+                    className='text-sm border text-white bg-red-600 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 shadow-md hover:bg-red-700 active:scale-[0.98] transition-all duration-300 disabled:hidden'
                   >
-                    Cancel appointment
+                    Cancel Appointment <MdOutlineCancel className='text-white text-xl'/>
+                  </button>}
+
+                {item.cancelled &&
+                  <button disabled className='text-sm text-red-700 bg-red-100 text-center sm:min-w-48 py-2 px-4 rounded-md flex items-center justify-center gap-2 border border-red-400 shadow-sm hover:scale-100 transition'>
+                    Cancelled <FcCancel className='text-red-700 text-xl'/>
                   </button>}
               </div>
-              {item.cancelled &&
-                <div className='flex flex-col gap-2 justify-end'>
-                  <button disabled className='sm:min-w-48 py-2 border border-red-500 text-red-500'>Appointment Cancelled</button>
-                </div>}
 
             </div>
           ))}
