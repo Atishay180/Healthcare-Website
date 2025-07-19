@@ -11,6 +11,8 @@ import { IoMdDoneAll } from "react-icons/io";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { MdOutlinePayment, MdOutlineCancel } from "react-icons/md";
 import { FcCancel } from "react-icons/fc";
+import Loader from '../components/Loader';
+import { TailSpin } from 'react-loader-spinner';
 
 const MyAppointments = () => {
   const { backendUrl, token, getDoctorsData } = useContext(AppContext);
@@ -131,10 +133,22 @@ const MyAppointments = () => {
     }
   }, [token])
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <TailSpin
+          height="80"
+          width="80"
+          color="#3b82f6"
+          ariaLabel="loading"
+        />
+      </div>
+    )
+  }
 
   return (
     <>
-      <div>
+      <div className='border min-h-screen'>
         <p className='pb-3 mt-12 font-medium text-zinc-700 border-b'>My appointments</p>
         <div>
           {appointments && appointments.map((item, index) => (
