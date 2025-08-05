@@ -5,18 +5,20 @@ import { FaTimes } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import Cookies from 'js-cookie'; 
+
 const Prompt = () => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        const hasSeen = localStorage.getItem('hasSeenServerNotice');
+        const hasSeen = Cookies.get('hasSeenServerNotice');
         if (!hasSeen) {
             setShow(true);
-            localStorage.setItem('hasSeenServerNotice', 'true');
+            Cookies.set('hasSeenServerNotice', 'true', {expires: 1});
         }
 
         AOS.init({
-            duration: 1000, // Animation duration in milliseconds
+            duration: 1000,
             once: true,
         });
     }, []);
