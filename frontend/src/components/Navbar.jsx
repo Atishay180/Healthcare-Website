@@ -106,7 +106,7 @@ const Navbar = () => {
 
                     <button className='text-2xl text-gray-800 md:hidden' onClick={() => setShowMenu(true)}><FaBars /></button>
                     {/* -------------Mobile Menu------------- */}
-                    <div className={`${showMenu ? 'fixed w-40 sm:w-48' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-y-auto scroll-smooth flex flex-col justify-between rounded-l-lg shadow-xl shadow-gray-700 bg-white transition-all duration-300`}>
+                    <div className={`fixed md:hidden right-0 top-0 bottom-0 w-1/2 z-20 overflow-y-auto scroll-smooth flex flex-col justify-between rounded-l-lg shadow-xl shadow-gray-700 bg-white transform transition-transform duration-300 ${showMenu ? "translate-x-0" : "translate-x-full"}`}>
                         <div className='flex items-center justify-between px-5 py-6'>
 
                             {/* logo  */}
