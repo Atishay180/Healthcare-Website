@@ -30,6 +30,7 @@ const Prompt = () => {
             <div data-aos="fade-up" className="bg-gray-50 rounded-xl shadow-lg w-[90%] max-w-lg p-6 text-center animate-scale-in relative">
                 {/* Close Button */}
                 <button
+                    id='close-prompt-button'
                     onClick={() => setShow(false)}
                     className="absolute top-3 right-3 text-gray-700 hover:text-red-500"
                 >
