@@ -29,6 +29,7 @@ const TopDoctors = () => {
             <div className="w-full flex flex-wrap justify-center gap-6 pt-5">
                 {doctors && doctors.slice(0, 10).map((item, index) => (
                     <div
+                        id={item.name}
                         key={item._id}
                         onClick={() => {
                             navigate(`/appointment/${item._id}`);
